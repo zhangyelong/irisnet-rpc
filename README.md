@@ -1,5 +1,5 @@
-# blockchain-rpc
-Common RPC interface for all blockChains
+# irisnet-rpc
+RPC interface for all blockChains
 
 # Generate Code
 
