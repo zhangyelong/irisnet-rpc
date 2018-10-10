@@ -177,6 +177,7 @@ struct TxListRequest {
 	8: string sort,
 	9: string q,
 	10: binary ext
+	11: i64 height
 }
 
 /** txDetail request
