@@ -146,6 +146,7 @@ struct PostTxResponse {
  */
 struct BalanceRequest {
 	1: string address
+	2: Exception ex
 }
 
 /** balance response
