@@ -2641,8 +2641,10 @@ func (p *PostTxRequest) String() string {
 //
 // Attributes:
 //  - TxHash
+//  - Ex
 type PostTxResponse struct {
-	TxHash string `thrift:"txHash,1" db:"txHash" json:"txHash"`
+	TxHash string     `thrift:"txHash,1" db:"txHash" json:"txHash"`
+	Ex     *Exception `thrift:"ex,2" db:"ex" json:"ex"`
 }
 
 func NewPostTxResponse() *PostTxResponse {
@@ -2652,124 +2654,20 @@ func NewPostTxResponse() *PostTxResponse {
 func (p *PostTxResponse) GetTxHash() string {
 	return p.TxHash
 }
-func (p *PostTxResponse) Read(iprot thrift.TProtocol) error {
-	if _, err := iprot.ReadStructBegin(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-	}
 
-	for {
-		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-		if err != nil {
-			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRING {
-				if err := p.ReadField1(iprot); err != nil {
-					return err
-				}
-			} else {
-				if err := iprot.Skip(fieldTypeId); err != nil {
-					return err
-				}
-			}
-		default:
-			if err := iprot.Skip(fieldTypeId); err != nil {
-				return err
-			}
-		}
-		if err := iprot.ReadFieldEnd(); err != nil {
-			return err
-		}
-	}
-	if err := iprot.ReadStructEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-	}
-	return nil
-}
+var PostTxResponse_Ex_DEFAULT *Exception
 
-func (p *PostTxResponse) ReadField1(iprot thrift.TProtocol) error {
-	if v, err := iprot.ReadString(); err != nil {
-		return thrift.PrependError("error reading field 1: ", err)
-	} else {
-		p.TxHash = v
-	}
-	return nil
-}
-
-func (p *PostTxResponse) Write(oprot thrift.TProtocol) error {
-	if err := oprot.WriteStructBegin("PostTxResponse"); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-	}
-	if p != nil {
-		if err := p.writeField1(oprot); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteFieldStop(); err != nil {
-		return thrift.PrependError("write field stop error: ", err)
-	}
-	if err := oprot.WriteStructEnd(); err != nil {
-		return thrift.PrependError("write struct stop error: ", err)
-	}
-	return nil
-}
-
-func (p *PostTxResponse) writeField1(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("txHash", thrift.STRING, 1); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:txHash: ", p), err)
-	}
-	if err := oprot.WriteString(string(p.TxHash)); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T.txHash (1) field write error: ", p), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:txHash: ", p), err)
-	}
-	return err
-}
-
-func (p *PostTxResponse) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("PostTxResponse(%+v)", *p)
-}
-
-// balance request
-// @param address, address of blockchain
-//
-// Attributes:
-//  - Address
-//  - Ex
-type BalanceRequest struct {
-	Address string     `thrift:"address,1" db:"address" json:"address"`
-	Ex      *Exception `thrift:"ex,2" db:"ex" json:"ex"`
-}
-
-func NewBalanceRequest() *BalanceRequest {
-	return &BalanceRequest{}
-}
-
-func (p *BalanceRequest) GetAddress() string {
-	return p.Address
-}
-
-var BalanceRequest_Ex_DEFAULT *Exception
-
-func (p *BalanceRequest) GetEx() *Exception {
+func (p *PostTxResponse) GetEx() *Exception {
 	if !p.IsSetEx() {
-		return BalanceRequest_Ex_DEFAULT
+		return PostTxResponse_Ex_DEFAULT
 	}
 	return p.Ex
 }
-func (p *BalanceRequest) IsSetEx() bool {
+func (p *PostTxResponse) IsSetEx() bool {
 	return p.Ex != nil
 }
 
-func (p *BalanceRequest) Read(iprot thrift.TProtocol) error {
+func (p *PostTxResponse) Read(iprot thrift.TProtocol) error {
 	if _, err := iprot.ReadStructBegin(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
 	}
@@ -2818,19 +2716,137 @@ func (p *BalanceRequest) Read(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *PostTxResponse) ReadField1(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return thrift.PrependError("error reading field 1: ", err)
+	} else {
+		p.TxHash = v
+	}
+	return nil
+}
+
+func (p *PostTxResponse) ReadField2(iprot thrift.TProtocol) error {
+	p.Ex = &Exception{}
+	if err := p.Ex.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Ex), err)
+	}
+	return nil
+}
+
+func (p *PostTxResponse) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("PostTxResponse"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField2(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *PostTxResponse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("txHash", thrift.STRING, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:txHash: ", p), err)
+	}
+	if err := oprot.WriteString(string(p.TxHash)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.txHash (1) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:txHash: ", p), err)
+	}
+	return err
+}
+
+func (p *PostTxResponse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("ex", thrift.STRUCT, 2); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:ex: ", p), err)
+	}
+	if err := p.Ex.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Ex), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:ex: ", p), err)
+	}
+	return err
+}
+
+func (p *PostTxResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PostTxResponse(%+v)", *p)
+}
+
+// balance request
+// @param address, address of blockchain
+//
+// Attributes:
+//  - Address
+type BalanceRequest struct {
+	Address string `thrift:"address,1" db:"address" json:"address"`
+}
+
+func NewBalanceRequest() *BalanceRequest {
+	return &BalanceRequest{}
+}
+
+func (p *BalanceRequest) GetAddress() string {
+	return p.Address
+}
+func (p *BalanceRequest) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
 func (p *BalanceRequest) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return thrift.PrependError("error reading field 1: ", err)
 	} else {
 		p.Address = v
-	}
-	return nil
-}
-
-func (p *BalanceRequest) ReadField2(iprot thrift.TProtocol) error {
-	p.Ex = &Exception{}
-	if err := p.Ex.Read(iprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Ex), err)
 	}
 	return nil
 }
@@ -2841,9 +2857,6 @@ func (p *BalanceRequest) Write(oprot thrift.TProtocol) error {
 	}
 	if p != nil {
 		if err := p.writeField1(oprot); err != nil {
-			return err
-		}
-		if err := p.writeField2(oprot); err != nil {
 			return err
 		}
 	}
@@ -2865,19 +2878,6 @@ func (p *BalanceRequest) writeField1(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:address: ", p), err)
-	}
-	return err
-}
-
-func (p *BalanceRequest) writeField2(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("ex", thrift.STRUCT, 2); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:ex: ", p), err)
-	}
-	if err := p.Ex.Write(oprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Ex), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:ex: ", p), err)
 	}
 	return err
 }

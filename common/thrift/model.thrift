@@ -139,6 +139,7 @@ struct PostTxRequest {
  */
 struct PostTxResponse {
 	1: string txHash
+	2: Exception ex
 }
 
 /** balance request
@@ -146,7 +147,6 @@ struct PostTxResponse {
  */
 struct BalanceRequest {
 	1: string address
-	2: Exception ex
 }
 
 /** balance response
