@@ -659,6 +659,9 @@ func (p *CandidateDescription) String() string {
 //  - Description
 //  - Delegators
 //  - UpTime
+//  - Type
+//  - Number
+//  - Lift
 type Candidate struct {
 	Address     string                `thrift:"address,1" db:"address" json:"address"`
 	PubKey      string                `thrift:"pubKey,2" db:"pubKey" json:"pubKey"`
@@ -667,6 +670,9 @@ type Candidate struct {
 	Description *CandidateDescription `thrift:"description,5" db:"description" json:"description"`
 	Delegators  []*Delegator          `thrift:"delegators,6" db:"delegators" json:"delegators"`
 	UpTime      float64               `thrift:"upTime,7" db:"upTime" json:"upTime"`
+	Type        string                `thrift:"type,8" db:"type" json:"type"`
+	Number      int8                  `thrift:"number,9" db:"number" json:"number"`
+	Lift        int8                  `thrift:"lift,10" db:"lift" json:"lift"`
 }
 
 func NewCandidate() *Candidate {
@@ -704,6 +710,18 @@ func (p *Candidate) GetDelegators() []*Delegator {
 
 func (p *Candidate) GetUpTime() float64 {
 	return p.UpTime
+}
+
+func (p *Candidate) GetType() string {
+	return p.Type
+}
+
+func (p *Candidate) GetNumber() int8 {
+	return p.Number
+}
+
+func (p *Candidate) GetLift() int8 {
+	return p.Lift
 }
 func (p *Candidate) IsSetDescription() bool {
 	return p.Description != nil
@@ -786,6 +804,36 @@ func (p *Candidate) Read(iprot thrift.TProtocol) error {
 		case 7:
 			if fieldTypeId == thrift.DOUBLE {
 				if err := p.ReadField7(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err := p.ReadField8(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 9:
+			if fieldTypeId == thrift.BYTE {
+				if err := p.ReadField9(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 10:
+			if fieldTypeId == thrift.BYTE {
+				if err := p.ReadField10(iprot); err != nil {
 					return err
 				}
 			} else {
@@ -881,6 +929,35 @@ func (p *Candidate) ReadField7(iprot thrift.TProtocol) error {
 	return nil
 }
 
+func (p *Candidate) ReadField8(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadString(); err != nil {
+		return thrift.PrependError("error reading field 8: ", err)
+	} else {
+		p.Type = v
+	}
+	return nil
+}
+
+func (p *Candidate) ReadField9(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadByte(); err != nil {
+		return thrift.PrependError("error reading field 9: ", err)
+	} else {
+		temp := int8(v)
+		p.Number = temp
+	}
+	return nil
+}
+
+func (p *Candidate) ReadField10(iprot thrift.TProtocol) error {
+	if v, err := iprot.ReadByte(); err != nil {
+		return thrift.PrependError("error reading field 10: ", err)
+	} else {
+		temp := int8(v)
+		p.Lift = temp
+	}
+	return nil
+}
+
 func (p *Candidate) Write(oprot thrift.TProtocol) error {
 	if err := oprot.WriteStructBegin("Candidate"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
@@ -905,6 +982,15 @@ func (p *Candidate) Write(oprot thrift.TProtocol) error {
 			return err
 		}
 		if err := p.writeField7(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField8(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField9(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField10(oprot); err != nil {
 			return err
 		}
 	}
@@ -1012,6 +1098,45 @@ func (p *Candidate) writeField7(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 7:upTime: ", p), err)
+	}
+	return err
+}
+
+func (p *Candidate) writeField8(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("type", thrift.STRING, 8); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 8:type: ", p), err)
+	}
+	if err := oprot.WriteString(string(p.Type)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.type (8) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 8:type: ", p), err)
+	}
+	return err
+}
+
+func (p *Candidate) writeField9(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("number", thrift.BYTE, 9); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 9:number: ", p), err)
+	}
+	if err := oprot.WriteByte(int8(p.Number)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.number (9) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 9:number: ", p), err)
+	}
+	return err
+}
+
+func (p *Candidate) writeField10(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("lift", thrift.BYTE, 10); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 10:lift: ", p), err)
+	}
+	if err := oprot.WriteByte(int8(p.Lift)); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T.lift (10) field write error: ", p), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 10:lift: ", p), err)
 	}
 	return err
 }
