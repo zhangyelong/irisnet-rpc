@@ -1190,9 +1190,17 @@ PostTxRequest.prototype.write = function(output) {
 
 var PostTxResponse = module.exports.PostTxResponse = function(args) {
   this.txHash = null;
+  this.ex = null;
+  if (args instanceof ttypes.Exception) {
+    this.ex = args;
+    return;
+  }
   if (args) {
     if (args.txHash !== undefined && args.txHash !== null) {
       this.txHash = args.txHash;
+    }
+    if (args.ex !== undefined && args.ex !== null) {
+      this.ex = args.ex;
     }
   }
 };
@@ -1217,9 +1225,14 @@ PostTxResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 0:
+      case 2:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.ex = new ttypes.Exception();
+        this.ex.read(input);
+      } else {
         input.skip(ftype);
-        break;
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1234,6 +1247,11 @@ PostTxResponse.prototype.write = function(output) {
   if (this.txHash !== null && this.txHash !== undefined) {
     output.writeFieldBegin('txHash', Thrift.Type.STRING, 1);
     output.writeString(this.txHash);
+    output.writeFieldEnd();
+  }
+  if (this.ex !== null && this.ex !== undefined) {
+    output.writeFieldBegin('ex', Thrift.Type.STRUCT, 2);
+    this.ex.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
