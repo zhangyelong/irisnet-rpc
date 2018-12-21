@@ -1316,12 +1316,79 @@ SimulateTxRequest.prototype.write = function(output) {
   return;
 };
 
-var SimulateResult = module.exports.SimulateResult = function(args) {
+var Withdraw = module.exports.Withdraw = function(args) {
   this.coin = null;
-  this.gas = null;
+  this.valAddress = null;
   if (args) {
     if (args.coin !== undefined && args.coin !== null) {
       this.coin = new ttypes.Coin(args.coin);
+    }
+    if (args.valAddress !== undefined && args.valAddress !== null) {
+      this.valAddress = args.valAddress;
+    }
+  }
+};
+Withdraw.prototype = {};
+Withdraw.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.coin = new ttypes.Coin();
+        this.coin.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.valAddress = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+Withdraw.prototype.write = function(output) {
+  output.writeStructBegin('Withdraw');
+  if (this.coin !== null && this.coin !== undefined) {
+    output.writeFieldBegin('coin', Thrift.Type.STRUCT, 1);
+    this.coin.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.valAddress !== null && this.valAddress !== undefined) {
+    output.writeFieldBegin('valAddress', Thrift.Type.STRING, 2);
+    output.writeString(this.valAddress);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var SimulateResult = module.exports.SimulateResult = function(args) {
+  this.withdraw = null;
+  this.gas = null;
+  if (args) {
+    if (args.withdraw !== undefined && args.withdraw !== null) {
+      this.withdraw = new ttypes.Withdraw(args.withdraw);
     }
     if (args.gas !== undefined && args.gas !== null) {
       this.gas = args.gas;
@@ -1344,8 +1411,8 @@ SimulateResult.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.STRUCT) {
-        this.coin = new ttypes.Coin();
-        this.coin.read(input);
+        this.withdraw = new ttypes.Withdraw();
+        this.withdraw.read(input);
       } else {
         input.skip(ftype);
       }
@@ -1368,9 +1435,9 @@ SimulateResult.prototype.read = function(input) {
 
 SimulateResult.prototype.write = function(output) {
   output.writeStructBegin('SimulateResult');
-  if (this.coin !== null && this.coin !== undefined) {
-    output.writeFieldBegin('coin', Thrift.Type.STRUCT, 1);
-    this.coin.write(output);
+  if (this.withdraw !== null && this.withdraw !== undefined) {
+    output.writeFieldBegin('withdraw', Thrift.Type.STRUCT, 1);
+    this.withdraw.write(output);
     output.writeFieldEnd();
   }
   if (this.gas !== null && this.gas !== undefined) {

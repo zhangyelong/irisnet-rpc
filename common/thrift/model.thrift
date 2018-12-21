@@ -148,9 +148,13 @@ struct SimulateTxRequest {
 	1: list<binary> tx
 }
 
+struct Withdraw {
+    1: Coin coin
+    2: string valAddress
+}
 
 struct SimulateResult {
-    1: Coin coin
+    1: Withdraw withdraw
 	2: i64  gas
 }
 /** SimulateTxRequest request
