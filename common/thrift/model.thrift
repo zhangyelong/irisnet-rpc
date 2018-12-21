@@ -148,15 +148,12 @@ struct SimulateTxRequest {
 	1: binary tx
 }
 
-struct SimulateResult {
-    1: map<string,Coin> withdraw
-	2: i64  gas
-}
 /** SimulateTxRequest request
  * @param tx, tx which has been signed
  */
 struct SimulateTxResponse {
-	1: SimulateResult results
+	1: map<string,Coin> withdraw
+    2: i64  gas
 }
 
 /** balance request

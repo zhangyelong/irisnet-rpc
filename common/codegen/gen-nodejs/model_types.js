@@ -1294,7 +1294,7 @@ SimulateTxRequest.prototype.write = function(output) {
   return;
 };
 
-var SimulateResult = module.exports.SimulateResult = function(args) {
+var SimulateTxResponse = module.exports.SimulateTxResponse = function(args) {
   this.withdraw = null;
   this.gas = null;
   if (args) {
@@ -1306,8 +1306,8 @@ var SimulateResult = module.exports.SimulateResult = function(args) {
     }
   }
 };
-SimulateResult.prototype = {};
-SimulateResult.prototype.read = function(input) {
+SimulateTxResponse.prototype = {};
+SimulateTxResponse.prototype.read = function(input) {
   input.readStructBegin();
   while (true)
   {
@@ -1361,8 +1361,8 @@ SimulateResult.prototype.read = function(input) {
   return;
 };
 
-SimulateResult.prototype.write = function(output) {
-  output.writeStructBegin('SimulateResult');
+SimulateTxResponse.prototype.write = function(output) {
+  output.writeStructBegin('SimulateTxResponse');
   if (this.withdraw !== null && this.withdraw !== undefined) {
     output.writeFieldBegin('withdraw', Thrift.Type.MAP, 1);
     output.writeMapBegin(Thrift.Type.STRING, Thrift.Type.STRUCT, Thrift.objectLength(this.withdraw));
@@ -1381,60 +1381,6 @@ SimulateResult.prototype.write = function(output) {
   if (this.gas !== null && this.gas !== undefined) {
     output.writeFieldBegin('gas', Thrift.Type.I64, 2);
     output.writeI64(this.gas);
-    output.writeFieldEnd();
-  }
-  output.writeFieldStop();
-  output.writeStructEnd();
-  return;
-};
-
-var SimulateTxResponse = module.exports.SimulateTxResponse = function(args) {
-  this.results = null;
-  if (args) {
-    if (args.results !== undefined && args.results !== null) {
-      this.results = new ttypes.SimulateResult(args.results);
-    }
-  }
-};
-SimulateTxResponse.prototype = {};
-SimulateTxResponse.prototype.read = function(input) {
-  input.readStructBegin();
-  while (true)
-  {
-    var ret = input.readFieldBegin();
-    var fname = ret.fname;
-    var ftype = ret.ftype;
-    var fid = ret.fid;
-    if (ftype == Thrift.Type.STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.results = new ttypes.SimulateResult();
-        this.results.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 0:
-        input.skip(ftype);
-        break;
-      default:
-        input.skip(ftype);
-    }
-    input.readFieldEnd();
-  }
-  input.readStructEnd();
-  return;
-};
-
-SimulateTxResponse.prototype.write = function(output) {
-  output.writeStructBegin('SimulateTxResponse');
-  if (this.results !== null && this.results !== undefined) {
-    output.writeFieldBegin('results', Thrift.Type.STRUCT, 1);
-    this.results.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

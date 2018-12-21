@@ -2840,26 +2840,29 @@ func (p *SimulateTxRequest) String() string {
 	return fmt.Sprintf("SimulateTxRequest(%+v)", *p)
 }
 
+// SimulateTxRequest request
+// @param tx, tx which has been signed
+//
 // Attributes:
 //  - Withdraw
 //  - Gas
-type SimulateResult_ struct {
+type SimulateTxResponse struct {
 	Withdraw map[string]*Coin `thrift:"withdraw,1" db:"withdraw" json:"withdraw"`
 	Gas      int64            `thrift:"gas,2" db:"gas" json:"gas"`
 }
 
-func NewSimulateResult_() *SimulateResult_ {
-	return &SimulateResult_{}
+func NewSimulateTxResponse() *SimulateTxResponse {
+	return &SimulateTxResponse{}
 }
 
-func (p *SimulateResult_) GetWithdraw() map[string]*Coin {
+func (p *SimulateTxResponse) GetWithdraw() map[string]*Coin {
 	return p.Withdraw
 }
 
-func (p *SimulateResult_) GetGas() int64 {
+func (p *SimulateTxResponse) GetGas() int64 {
 	return p.Gas
 }
-func (p *SimulateResult_) Read(iprot thrift.TProtocol) error {
+func (p *SimulateTxResponse) Read(iprot thrift.TProtocol) error {
 	if _, err := iprot.ReadStructBegin(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
 	}
@@ -2908,7 +2911,7 @@ func (p *SimulateResult_) Read(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *SimulateResult_) ReadField1(iprot thrift.TProtocol) error {
+func (p *SimulateTxResponse) ReadField1(iprot thrift.TProtocol) error {
 	_, _, size, err := iprot.ReadMapBegin()
 	if err != nil {
 		return thrift.PrependError("error reading map begin: ", err)
@@ -2934,7 +2937,7 @@ func (p *SimulateResult_) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *SimulateResult_) ReadField2(iprot thrift.TProtocol) error {
+func (p *SimulateTxResponse) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadI64(); err != nil {
 		return thrift.PrependError("error reading field 2: ", err)
 	} else {
@@ -2943,8 +2946,8 @@ func (p *SimulateResult_) ReadField2(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *SimulateResult_) Write(oprot thrift.TProtocol) error {
-	if err := oprot.WriteStructBegin("SimulateResult"); err != nil {
+func (p *SimulateTxResponse) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("SimulateTxResponse"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
 	}
 	if p != nil {
@@ -2964,7 +2967,7 @@ func (p *SimulateResult_) Write(oprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *SimulateResult_) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *SimulateTxResponse) writeField1(oprot thrift.TProtocol) (err error) {
 	if err := oprot.WriteFieldBegin("withdraw", thrift.MAP, 1); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:withdraw: ", p), err)
 	}
@@ -2988,7 +2991,7 @@ func (p *SimulateResult_) writeField1(oprot thrift.TProtocol) (err error) {
 	return err
 }
 
-func (p *SimulateResult_) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *SimulateTxResponse) writeField2(oprot thrift.TProtocol) (err error) {
 	if err := oprot.WriteFieldBegin("gas", thrift.I64, 2); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field begin error 2:gas: ", p), err)
 	}
@@ -2997,116 +3000,6 @@ func (p *SimulateResult_) writeField2(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 2:gas: ", p), err)
-	}
-	return err
-}
-
-func (p *SimulateResult_) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("SimulateResult_(%+v)", *p)
-}
-
-// SimulateTxRequest request
-// @param tx, tx which has been signed
-//
-// Attributes:
-//  - Results
-type SimulateTxResponse struct {
-	Results *SimulateResult_ `thrift:"results,1" db:"results" json:"results"`
-}
-
-func NewSimulateTxResponse() *SimulateTxResponse {
-	return &SimulateTxResponse{}
-}
-
-var SimulateTxResponse_Results_DEFAULT *SimulateResult_
-
-func (p *SimulateTxResponse) GetResults() *SimulateResult_ {
-	if !p.IsSetResults() {
-		return SimulateTxResponse_Results_DEFAULT
-	}
-	return p.Results
-}
-func (p *SimulateTxResponse) IsSetResults() bool {
-	return p.Results != nil
-}
-
-func (p *SimulateTxResponse) Read(iprot thrift.TProtocol) error {
-	if _, err := iprot.ReadStructBegin(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
-		if err != nil {
-			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err := p.ReadField1(iprot); err != nil {
-					return err
-				}
-			} else {
-				if err := iprot.Skip(fieldTypeId); err != nil {
-					return err
-				}
-			}
-		default:
-			if err := iprot.Skip(fieldTypeId); err != nil {
-				return err
-			}
-		}
-		if err := iprot.ReadFieldEnd(); err != nil {
-			return err
-		}
-	}
-	if err := iprot.ReadStructEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-	}
-	return nil
-}
-
-func (p *SimulateTxResponse) ReadField1(iprot thrift.TProtocol) error {
-	p.Results = &SimulateResult_{}
-	if err := p.Results.Read(iprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Results), err)
-	}
-	return nil
-}
-
-func (p *SimulateTxResponse) Write(oprot thrift.TProtocol) error {
-	if err := oprot.WriteStructBegin("SimulateTxResponse"); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-	}
-	if p != nil {
-		if err := p.writeField1(oprot); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteFieldStop(); err != nil {
-		return thrift.PrependError("write field stop error: ", err)
-	}
-	if err := oprot.WriteStructEnd(); err != nil {
-		return thrift.PrependError("write struct stop error: ", err)
-	}
-	return nil
-}
-
-func (p *SimulateTxResponse) writeField1(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("results", thrift.STRUCT, 1); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:results: ", p), err)
-	}
-	if err := p.Results.Write(oprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Results), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:results: ", p), err)
 	}
 	return err
 }
