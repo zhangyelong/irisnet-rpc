@@ -1190,17 +1190,9 @@ PostTxRequest.prototype.write = function(output) {
 
 var PostTxResponse = module.exports.PostTxResponse = function(args) {
   this.txHash = null;
-  this.ex = null;
-  if (args instanceof ttypes.Exception) {
-    this.ex = args;
-    return;
-  }
   if (args) {
     if (args.txHash !== undefined && args.txHash !== null) {
       this.txHash = args.txHash;
-    }
-    if (args.ex !== undefined && args.ex !== null) {
-      this.ex = args.ex;
     }
   }
 };
@@ -1225,14 +1217,9 @@ PostTxResponse.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 2:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.ex = new ttypes.Exception();
-        this.ex.read(input);
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -1249,9 +1236,222 @@ PostTxResponse.prototype.write = function(output) {
     output.writeString(this.txHash);
     output.writeFieldEnd();
   }
-  if (this.ex !== null && this.ex !== undefined) {
-    output.writeFieldBegin('ex', Thrift.Type.STRUCT, 2);
-    this.ex.write(output);
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var SimulateTxRequest = module.exports.SimulateTxRequest = function(args) {
+  this.tx = null;
+  if (args) {
+    if (args.tx !== undefined && args.tx !== null) {
+      this.tx = Thrift.copyList(args.tx, [null]);
+    }
+  }
+};
+SimulateTxRequest.prototype = {};
+SimulateTxRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.tx = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = input.readBinary();
+          this.tx.push(elem14);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SimulateTxRequest.prototype.write = function(output) {
+  output.writeStructBegin('SimulateTxRequest');
+  if (this.tx !== null && this.tx !== undefined) {
+    output.writeFieldBegin('tx', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRING, this.tx.length);
+    for (var iter15 in this.tx)
+    {
+      if (this.tx.hasOwnProperty(iter15))
+      {
+        iter15 = this.tx[iter15];
+        output.writeBinary(iter15);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var SimulateResult = module.exports.SimulateResult = function(args) {
+  this.coin = null;
+  this.gas = null;
+  if (args) {
+    if (args.coin !== undefined && args.coin !== null) {
+      this.coin = new ttypes.Coin(args.coin);
+    }
+    if (args.gas !== undefined && args.gas !== null) {
+      this.gas = args.gas;
+    }
+  }
+};
+SimulateResult.prototype = {};
+SimulateResult.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.coin = new ttypes.Coin();
+        this.coin.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.I64) {
+        this.gas = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SimulateResult.prototype.write = function(output) {
+  output.writeStructBegin('SimulateResult');
+  if (this.coin !== null && this.coin !== undefined) {
+    output.writeFieldBegin('coin', Thrift.Type.STRUCT, 1);
+    this.coin.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.gas !== null && this.gas !== undefined) {
+    output.writeFieldBegin('gas', Thrift.Type.I64, 2);
+    output.writeI64(this.gas);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var SimulateTxResponse = module.exports.SimulateTxResponse = function(args) {
+  this.results = null;
+  if (args) {
+    if (args.results !== undefined && args.results !== null) {
+      this.results = Thrift.copyList(args.results, [ttypes.SimulateResult]);
+    }
+  }
+};
+SimulateTxResponse.prototype = {};
+SimulateTxResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size16 = 0;
+        var _rtmp320;
+        this.results = [];
+        var _etype19 = 0;
+        _rtmp320 = input.readListBegin();
+        _etype19 = _rtmp320.etype;
+        _size16 = _rtmp320.size;
+        for (var _i21 = 0; _i21 < _size16; ++_i21)
+        {
+          var elem22 = null;
+          elem22 = new ttypes.SimulateResult();
+          elem22.read(input);
+          this.results.push(elem22);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SimulateTxResponse.prototype.write = function(output) {
+  output.writeStructBegin('SimulateTxResponse');
+  if (this.results !== null && this.results !== undefined) {
+    output.writeFieldBegin('results', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.results.length);
+    for (var iter23 in this.results)
+    {
+      if (this.results.hasOwnProperty(iter23))
+      {
+        iter23 = this.results[iter23];
+        iter23.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1336,19 +1536,19 @@ BalanceResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size8 = 0;
-        var _rtmp312;
+        var _size24 = 0;
+        var _rtmp328;
         this.coins = [];
-        var _etype11 = 0;
-        _rtmp312 = input.readListBegin();
-        _etype11 = _rtmp312.etype;
-        _size8 = _rtmp312.size;
-        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        var _etype27 = 0;
+        _rtmp328 = input.readListBegin();
+        _etype27 = _rtmp328.etype;
+        _size24 = _rtmp328.size;
+        for (var _i29 = 0; _i29 < _size24; ++_i29)
         {
-          var elem14 = null;
-          elem14 = new ttypes.Coin();
-          elem14.read(input);
-          this.coins.push(elem14);
+          var elem30 = null;
+          elem30 = new ttypes.Coin();
+          elem30.read(input);
+          this.coins.push(elem30);
         }
         input.readListEnd();
       } else {
@@ -1372,12 +1572,12 @@ BalanceResponse.prototype.write = function(output) {
   if (this.coins !== null && this.coins !== undefined) {
     output.writeFieldBegin('coins', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.coins.length);
-    for (var iter15 in this.coins)
+    for (var iter31 in this.coins)
     {
-      if (this.coins.hasOwnProperty(iter15))
+      if (this.coins.hasOwnProperty(iter31))
       {
-        iter15 = this.coins[iter15];
-        iter15.write(output);
+        iter31 = this.coins[iter31];
+        iter31.write(output);
       }
     }
     output.writeListEnd();
