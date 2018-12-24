@@ -152,7 +152,7 @@ struct SimulateTxRequest {
  * @param tx, tx which has been signed
  */
 struct SimulateTxResponse {
-	1: map<string,Coin> withdraw
+	1: Coin reward
     2: i64  gas
 }
 
