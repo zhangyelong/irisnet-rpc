@@ -11,6 +11,72 @@ var Q = thrift.Q;
 
 
 var ttypes = module.exports = {};
+var Coin = module.exports.Coin = function(args) {
+  this.amount = null;
+  this.denom = null;
+  if (args) {
+    if (args.amount !== undefined && args.amount !== null) {
+      this.amount = args.amount;
+    }
+    if (args.denom !== undefined && args.denom !== null) {
+      this.denom = args.denom;
+    }
+  }
+};
+Coin.prototype = {};
+Coin.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.amount = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.denom = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+Coin.prototype.write = function(output) {
+  output.writeStructBegin('Coin');
+  if (this.amount !== null && this.amount !== undefined) {
+    output.writeFieldBegin('amount', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.amount);
+    output.writeFieldEnd();
+  }
+  if (this.denom !== null && this.denom !== undefined) {
+    output.writeFieldBegin('denom', Thrift.Type.STRING, 2);
+    output.writeString(this.denom);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 var DelegatorUnbondingDelegation = module.exports.DelegatorUnbondingDelegation = function(args) {
   this.tokens = null;
   this.minTime = null;
@@ -83,6 +149,8 @@ var Delegator = module.exports.Delegator = function(args) {
   this.shares = null;
   this.bondedTokens = null;
   this.unbondingDelegation = null;
+  this.retrieveReward = null;
+  this.unRetrieveReward = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
@@ -98,6 +166,12 @@ var Delegator = module.exports.Delegator = function(args) {
     }
     if (args.unbondingDelegation !== undefined && args.unbondingDelegation !== null) {
       this.unbondingDelegation = new ttypes.DelegatorUnbondingDelegation(args.unbondingDelegation);
+    }
+    if (args.retrieveReward !== undefined && args.retrieveReward !== null) {
+      this.retrieveReward = new ttypes.Coin(args.retrieveReward);
+    }
+    if (args.unRetrieveReward !== undefined && args.unRetrieveReward !== null) {
+      this.unRetrieveReward = new ttypes.Coin(args.unRetrieveReward);
     }
   }
 };
@@ -151,6 +225,22 @@ Delegator.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 6:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.retrieveReward = new ttypes.Coin();
+        this.retrieveReward.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 7:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.unRetrieveReward = new ttypes.Coin();
+        this.unRetrieveReward.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -185,6 +275,16 @@ Delegator.prototype.write = function(output) {
   if (this.unbondingDelegation !== null && this.unbondingDelegation !== undefined) {
     output.writeFieldBegin('unbondingDelegation', Thrift.Type.STRUCT, 5);
     this.unbondingDelegation.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.retrieveReward !== null && this.retrieveReward !== undefined) {
+    output.writeFieldBegin('retrieveReward', Thrift.Type.STRUCT, 6);
+    this.retrieveReward.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.unRetrieveReward !== null && this.unRetrieveReward !== undefined) {
+    output.writeFieldBegin('unRetrieveReward', Thrift.Type.STRUCT, 7);
+    this.unRetrieveReward.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
@@ -1105,6 +1205,159 @@ ValidatorExRateResponse.prototype.write = function(output) {
   if (this.tokenSharesRate !== null && this.tokenSharesRate !== undefined) {
     output.writeFieldBegin('tokenSharesRate', Thrift.Type.DOUBLE, 1);
     output.writeDouble(this.tokenSharesRate);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var TotalRewardInfoRequest = module.exports.TotalRewardInfoRequest = function(args) {
+  this.delAddr = null;
+  if (args) {
+    if (args.delAddr !== undefined && args.delAddr !== null) {
+      this.delAddr = args.delAddr;
+    }
+  }
+};
+TotalRewardInfoRequest.prototype = {};
+TotalRewardInfoRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.delAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TotalRewardInfoRequest.prototype.write = function(output) {
+  output.writeStructBegin('TotalRewardInfoRequest');
+  if (this.delAddr !== null && this.delAddr !== undefined) {
+    output.writeFieldBegin('delAddr', Thrift.Type.STRING, 1);
+    output.writeString(this.delAddr);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var TotalRewardInfoResponse = module.exports.TotalRewardInfoResponse = function(args) {
+  this.delAddr = null;
+  this.withdrawAddr = null;
+  this.totalRetrieveReward = null;
+  this.totalUnRetrieveReward = null;
+  if (args) {
+    if (args.delAddr !== undefined && args.delAddr !== null) {
+      this.delAddr = args.delAddr;
+    }
+    if (args.withdrawAddr !== undefined && args.withdrawAddr !== null) {
+      this.withdrawAddr = args.withdrawAddr;
+    }
+    if (args.totalRetrieveReward !== undefined && args.totalRetrieveReward !== null) {
+      this.totalRetrieveReward = new ttypes.Coin(args.totalRetrieveReward);
+    }
+    if (args.totalUnRetrieveReward !== undefined && args.totalUnRetrieveReward !== null) {
+      this.totalUnRetrieveReward = new ttypes.Coin(args.totalUnRetrieveReward);
+    }
+  }
+};
+TotalRewardInfoResponse.prototype = {};
+TotalRewardInfoResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.delAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.withdrawAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.totalRetrieveReward = new ttypes.Coin();
+        this.totalRetrieveReward.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.totalUnRetrieveReward = new ttypes.Coin();
+        this.totalUnRetrieveReward.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+TotalRewardInfoResponse.prototype.write = function(output) {
+  output.writeStructBegin('TotalRewardInfoResponse');
+  if (this.delAddr !== null && this.delAddr !== undefined) {
+    output.writeFieldBegin('delAddr', Thrift.Type.STRING, 1);
+    output.writeString(this.delAddr);
+    output.writeFieldEnd();
+  }
+  if (this.withdrawAddr !== null && this.withdrawAddr !== undefined) {
+    output.writeFieldBegin('withdrawAddr', Thrift.Type.STRING, 2);
+    output.writeString(this.withdrawAddr);
+    output.writeFieldEnd();
+  }
+  if (this.totalRetrieveReward !== null && this.totalRetrieveReward !== undefined) {
+    output.writeFieldBegin('totalRetrieveReward', Thrift.Type.STRUCT, 3);
+    this.totalRetrieveReward.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.totalUnRetrieveReward !== null && this.totalUnRetrieveReward !== undefined) {
+    output.writeFieldBegin('totalUnRetrieveReward', Thrift.Type.STRUCT, 4);
+    this.totalUnRetrieveReward.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();
