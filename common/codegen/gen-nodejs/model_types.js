@@ -1931,12 +1931,8 @@ RewardListRequest.prototype.write = function(output) {
 };
 
 var RewardListResponse = module.exports.RewardListResponse = function(args) {
-  this.totalAmt = null;
   this.rewards = null;
   if (args) {
-    if (args.totalAmt !== undefined && args.totalAmt !== null) {
-      this.totalAmt = Thrift.copyList(args.totalAmt, [ttypes.Coin]);
-    }
     if (args.rewards !== undefined && args.rewards !== null) {
       this.rewards = Thrift.copyList(args.rewards, [null]);
     }
@@ -1960,7 +1956,7 @@ RewardListResponse.prototype.read = function(input) {
       if (ftype == Thrift.Type.LIST) {
         var _size24 = 0;
         var _rtmp328;
-        this.totalAmt = [];
+        this.rewards = [];
         var _etype27 = 0;
         _rtmp328 = input.readListBegin();
         _etype27 = _rtmp328.etype;
@@ -1968,36 +1964,18 @@ RewardListResponse.prototype.read = function(input) {
         for (var _i29 = 0; _i29 < _size24; ++_i29)
         {
           var elem30 = null;
-          elem30 = new ttypes.Coin();
+          elem30 = new ttypes.Reward();
           elem30.read(input);
-          this.totalAmt.push(elem30);
+          this.rewards.push(elem30);
         }
         input.readListEnd();
       } else {
         input.skip(ftype);
       }
       break;
-      case 2:
-      if (ftype == Thrift.Type.LIST) {
-        var _size31 = 0;
-        var _rtmp335;
-        this.rewards = [];
-        var _etype34 = 0;
-        _rtmp335 = input.readListBegin();
-        _etype34 = _rtmp335.etype;
-        _size31 = _rtmp335.size;
-        for (var _i36 = 0; _i36 < _size31; ++_i36)
-        {
-          var elem37 = null;
-          elem37 = new ttypes.Reward();
-          elem37.read(input);
-          this.rewards.push(elem37);
-        }
-        input.readListEnd();
-      } else {
+      case 0:
         input.skip(ftype);
-      }
-      break;
+        break;
       default:
         input.skip(ftype);
     }
@@ -2009,29 +1987,15 @@ RewardListResponse.prototype.read = function(input) {
 
 RewardListResponse.prototype.write = function(output) {
   output.writeStructBegin('RewardListResponse');
-  if (this.totalAmt !== null && this.totalAmt !== undefined) {
-    output.writeFieldBegin('totalAmt', Thrift.Type.LIST, 1);
-    output.writeListBegin(Thrift.Type.STRUCT, this.totalAmt.length);
-    for (var iter38 in this.totalAmt)
-    {
-      if (this.totalAmt.hasOwnProperty(iter38))
-      {
-        iter38 = this.totalAmt[iter38];
-        iter38.write(output);
-      }
-    }
-    output.writeListEnd();
-    output.writeFieldEnd();
-  }
   if (this.rewards !== null && this.rewards !== undefined) {
-    output.writeFieldBegin('rewards', Thrift.Type.LIST, 2);
+    output.writeFieldBegin('rewards', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.rewards.length);
-    for (var iter39 in this.rewards)
+    for (var iter31 in this.rewards)
     {
-      if (this.rewards.hasOwnProperty(iter39))
+      if (this.rewards.hasOwnProperty(iter31))
       {
-        iter39 = this.rewards[iter39];
-        iter39.write(output);
+        iter31 = this.rewards[iter31];
+        iter31.write(output);
       }
     }
     output.writeListEnd();
@@ -2113,19 +2077,19 @@ Reward.prototype.read = function(input) {
       break;
       case 2:
       if (ftype == Thrift.Type.LIST) {
-        var _size40 = 0;
-        var _rtmp344;
+        var _size32 = 0;
+        var _rtmp336;
         this.amount = [];
-        var _etype43 = 0;
-        _rtmp344 = input.readListBegin();
-        _etype43 = _rtmp344.etype;
-        _size40 = _rtmp344.size;
-        for (var _i45 = 0; _i45 < _size40; ++_i45)
+        var _etype35 = 0;
+        _rtmp336 = input.readListBegin();
+        _etype35 = _rtmp336.etype;
+        _size32 = _rtmp336.size;
+        for (var _i37 = 0; _i37 < _size32; ++_i37)
         {
-          var elem46 = null;
-          elem46 = new ttypes.Coin();
-          elem46.read(input);
-          this.amount.push(elem46);
+          var elem38 = null;
+          elem38 = new ttypes.Coin();
+          elem38.read(input);
+          this.amount.push(elem38);
         }
         input.readListEnd();
       } else {
@@ -2192,19 +2156,19 @@ Reward.prototype.read = function(input) {
       break;
       case 11:
       if (ftype == Thrift.Type.LIST) {
-        var _size47 = 0;
-        var _rtmp351;
+        var _size39 = 0;
+        var _rtmp343;
         this.details = [];
-        var _etype50 = 0;
-        _rtmp351 = input.readListBegin();
-        _etype50 = _rtmp351.etype;
-        _size47 = _rtmp351.size;
-        for (var _i52 = 0; _i52 < _size47; ++_i52)
+        var _etype42 = 0;
+        _rtmp343 = input.readListBegin();
+        _etype42 = _rtmp343.etype;
+        _size39 = _rtmp343.size;
+        for (var _i44 = 0; _i44 < _size39; ++_i44)
         {
-          var elem53 = null;
-          elem53 = new ttypes.RewardDetail();
-          elem53.read(input);
-          this.details.push(elem53);
+          var elem45 = null;
+          elem45 = new ttypes.RewardDetail();
+          elem45.read(input);
+          this.details.push(elem45);
         }
         input.readListEnd();
       } else {
@@ -2230,12 +2194,12 @@ Reward.prototype.write = function(output) {
   if (this.amount !== null && this.amount !== undefined) {
     output.writeFieldBegin('amount', Thrift.Type.LIST, 2);
     output.writeListBegin(Thrift.Type.STRUCT, this.amount.length);
-    for (var iter54 in this.amount)
+    for (var iter46 in this.amount)
     {
-      if (this.amount.hasOwnProperty(iter54))
+      if (this.amount.hasOwnProperty(iter46))
       {
-        iter54 = this.amount[iter54];
-        iter54.write(output);
+        iter46 = this.amount[iter46];
+        iter46.write(output);
       }
     }
     output.writeListEnd();
@@ -2284,12 +2248,12 @@ Reward.prototype.write = function(output) {
   if (this.details !== null && this.details !== undefined) {
     output.writeFieldBegin('details', Thrift.Type.LIST, 11);
     output.writeListBegin(Thrift.Type.STRUCT, this.details.length);
-    for (var iter55 in this.details)
+    for (var iter47 in this.details)
     {
-      if (this.details.hasOwnProperty(iter55))
+      if (this.details.hasOwnProperty(iter47))
       {
-        iter55 = this.details[iter55];
-        iter55.write(output);
+        iter47 = this.details[iter47];
+        iter47.write(output);
       }
     }
     output.writeListEnd();

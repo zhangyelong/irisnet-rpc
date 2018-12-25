@@ -213,8 +213,7 @@ struct RewardListRequest {
 }
 
 struct RewardListResponse {
-    1: list<Coin> totalAmt,
-    2: list<Reward> rewards
+    1: list<Reward> rewards
 }
 
 struct Reward {
