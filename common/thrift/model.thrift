@@ -149,7 +149,7 @@ struct SimulateTxRequest {
 }
 
 struct RewardDetail {
-    1: string valAddress
+    1: string valAddr
     2: string name
     3: Coin   amount
 }
@@ -205,6 +205,30 @@ struct TxListRequest {
  */
 struct TxDetailRequest {
 	1: required string txHash
+}
+
+struct RewardListRequest {
+    1: string delAddr,
+    2: string valAddr,
+}
+
+struct RewardListResponse {
+    1: list<Coin> totalAmt,
+    2: list<Reward> rewards
+}
+
+struct Reward {
+    1: string delAddr
+    2: list<Coin> amount,
+    3: Fee fee,
+    4: Memo memo,
+    5: string type,
+    6: string txHash,
+    7: string time,
+    8: i64 height,
+    9: string status,
+    10:string withdrawAddr,
+    11: list<RewardDetail> details
 }
 
 

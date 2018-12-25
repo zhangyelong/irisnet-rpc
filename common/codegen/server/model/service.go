@@ -43,6 +43,9 @@ type BlockChainService interface {
 	// Parameters:
 	//  - Req
 	GetTxDetail(ctx context.Context, req *TxDetailRequest) (r *Tx, err error)
+	// Parameters:
+	//  - Req
+	GetRewardList(ctx context.Context, req *RewardListRequest) (r *RewardListResponse, err error)
 }
 
 type BlockChainServiceClient struct {
@@ -205,6 +208,23 @@ func (p *BlockChainServiceClient) GetTxDetail(ctx context.Context, req *TxDetail
 	return _result15.GetSuccess(), nil
 }
 
+// Parameters:
+//  - Req
+func (p *BlockChainServiceClient) GetRewardList(ctx context.Context, req *RewardListRequest) (r *RewardListResponse, err error) {
+	var _args16 BlockChainServiceGetRewardListArgs
+	_args16.Req = req
+	var _result17 BlockChainServiceGetRewardListResult
+	if err = p.c.Call(ctx, "GetRewardList", &_args16, &_result17); err != nil {
+		return
+	}
+	switch {
+	case _result17.E != nil:
+		return r, _result17.E
+	}
+
+	return _result17.GetSuccess(), nil
+}
+
 type BlockChainServiceProcessor struct {
 	processorMap map[string]thrift.TProcessorFunction
 	handler      BlockChainService
@@ -225,16 +245,17 @@ func (p *BlockChainServiceProcessor) ProcessorMap() map[string]thrift.TProcessor
 
 func NewBlockChainServiceProcessor(handler BlockChainService) *BlockChainServiceProcessor {
 
-	self16 := &BlockChainServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
-	self16.processorMap["GetTxGas"] = &blockChainServiceProcessorGetTxGas{handler: handler}
-	self16.processorMap["GetSequence"] = &blockChainServiceProcessorGetSequence{handler: handler}
-	self16.processorMap["BuildTx"] = &blockChainServiceProcessorBuildTx{handler: handler}
-	self16.processorMap["PostTx"] = &blockChainServiceProcessorPostTx{handler: handler}
-	self16.processorMap["SimulateTx"] = &blockChainServiceProcessorSimulateTx{handler: handler}
-	self16.processorMap["GetBalance"] = &blockChainServiceProcessorGetBalance{handler: handler}
-	self16.processorMap["GetTxList"] = &blockChainServiceProcessorGetTxList{handler: handler}
-	self16.processorMap["GetTxDetail"] = &blockChainServiceProcessorGetTxDetail{handler: handler}
-	return self16
+	self18 := &BlockChainServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
+	self18.processorMap["GetTxGas"] = &blockChainServiceProcessorGetTxGas{handler: handler}
+	self18.processorMap["GetSequence"] = &blockChainServiceProcessorGetSequence{handler: handler}
+	self18.processorMap["BuildTx"] = &blockChainServiceProcessorBuildTx{handler: handler}
+	self18.processorMap["PostTx"] = &blockChainServiceProcessorPostTx{handler: handler}
+	self18.processorMap["SimulateTx"] = &blockChainServiceProcessorSimulateTx{handler: handler}
+	self18.processorMap["GetBalance"] = &blockChainServiceProcessorGetBalance{handler: handler}
+	self18.processorMap["GetTxList"] = &blockChainServiceProcessorGetTxList{handler: handler}
+	self18.processorMap["GetTxDetail"] = &blockChainServiceProcessorGetTxDetail{handler: handler}
+	self18.processorMap["GetRewardList"] = &blockChainServiceProcessorGetRewardList{handler: handler}
+	return self18
 }
 
 func (p *BlockChainServiceProcessor) Process(ctx context.Context, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
@@ -247,12 +268,12 @@ func (p *BlockChainServiceProcessor) Process(ctx context.Context, iprot, oprot t
 	}
 	iprot.Skip(thrift.STRUCT)
 	iprot.ReadMessageEnd()
-	x17 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
+	x19 := thrift.NewTApplicationException(thrift.UNKNOWN_METHOD, "Unknown function "+name)
 	oprot.WriteMessageBegin(name, thrift.EXCEPTION, seqId)
-	x17.Write(oprot)
+	x19.Write(oprot)
 	oprot.WriteMessageEnd()
 	oprot.Flush()
-	return false, x17
+	return false, x19
 
 }
 
@@ -663,6 +684,59 @@ func (p *blockChainServiceProcessorGetTxDetail) Process(ctx context.Context, seq
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("GetTxDetail", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type blockChainServiceProcessorGetRewardList struct {
+	handler BlockChainService
+}
+
+func (p *blockChainServiceProcessorGetRewardList) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := BlockChainServiceGetRewardListArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("GetRewardList", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush()
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	result := BlockChainServiceGetRewardListResult{}
+	var retval *RewardListResponse
+	var err2 error
+	if retval, err2 = p.handler.GetRewardList(ctx, args.Req); err2 != nil {
+		switch v := err2.(type) {
+		case *Exception:
+			result.E = v
+		default:
+			x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing GetRewardList: "+err2.Error())
+			oprot.WriteMessageBegin("GetRewardList", thrift.EXCEPTION, seqId)
+			x.Write(oprot)
+			oprot.WriteMessageEnd()
+			oprot.Flush()
+			return true, err2
+		}
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("GetRewardList", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2482,11 +2556,11 @@ func (p *BlockChainServiceGetTxListResult) ReadField0(iprot thrift.TProtocol) er
 	tSlice := make([]*Tx, 0, size)
 	p.Success = tSlice
 	for i := 0; i < size; i++ {
-		_elem18 := &Tx{}
-		if err := _elem18.Read(iprot); err != nil {
-			return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem18), err)
+		_elem20 := &Tx{}
+		if err := _elem20.Read(iprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", _elem20), err)
 		}
-		p.Success = append(p.Success, _elem18)
+		p.Success = append(p.Success, _elem20)
 	}
 	if err := iprot.ReadListEnd(); err != nil {
 		return thrift.PrependError("error reading list end: ", err)
@@ -2833,4 +2907,271 @@ func (p *BlockChainServiceGetTxDetailResult) String() string {
 		return "<nil>"
 	}
 	return fmt.Sprintf("BlockChainServiceGetTxDetailResult(%+v)", *p)
+}
+
+// Attributes:
+//  - Req
+type BlockChainServiceGetRewardListArgs struct {
+	Req *RewardListRequest `thrift:"req,1" db:"req" json:"req"`
+}
+
+func NewBlockChainServiceGetRewardListArgs() *BlockChainServiceGetRewardListArgs {
+	return &BlockChainServiceGetRewardListArgs{}
+}
+
+var BlockChainServiceGetRewardListArgs_Req_DEFAULT *RewardListRequest
+
+func (p *BlockChainServiceGetRewardListArgs) GetReq() *RewardListRequest {
+	if !p.IsSetReq() {
+		return BlockChainServiceGetRewardListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *BlockChainServiceGetRewardListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *BlockChainServiceGetRewardListArgs) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = &RewardListRequest{}
+	if err := p.Req.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Req), err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListArgs) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetRewardList_args"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err := oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:req: ", p), err)
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Req), err)
+	}
+	if err := oprot.WriteFieldEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write field end error 1:req: ", p), err)
+	}
+	return err
+}
+
+func (p *BlockChainServiceGetRewardListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("BlockChainServiceGetRewardListArgs(%+v)", *p)
+}
+
+// Attributes:
+//  - Success
+//  - E
+type BlockChainServiceGetRewardListResult struct {
+	Success *RewardListResponse `thrift:"success,0" db:"success" json:"success,omitempty"`
+	E       *Exception          `thrift:"e,1" db:"e" json:"e,omitempty"`
+}
+
+func NewBlockChainServiceGetRewardListResult() *BlockChainServiceGetRewardListResult {
+	return &BlockChainServiceGetRewardListResult{}
+}
+
+var BlockChainServiceGetRewardListResult_Success_DEFAULT *RewardListResponse
+
+func (p *BlockChainServiceGetRewardListResult) GetSuccess() *RewardListResponse {
+	if !p.IsSetSuccess() {
+		return BlockChainServiceGetRewardListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+
+var BlockChainServiceGetRewardListResult_E_DEFAULT *Exception
+
+func (p *BlockChainServiceGetRewardListResult) GetE() *Exception {
+	if !p.IsSetE() {
+		return BlockChainServiceGetRewardListResult_E_DEFAULT
+	}
+	return p.E
+}
+func (p *BlockChainServiceGetRewardListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) IsSetE() bool {
+	return p.E != nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) Read(iprot thrift.TProtocol) error {
+	if _, err := iprot.ReadStructBegin(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read error: ", p), err)
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err := iprot.ReadFieldBegin()
+		if err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T field %d read error: ", p, fieldId), err)
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField0(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err := p.ReadField1(iprot); err != nil {
+					return err
+				}
+			} else {
+				if err := iprot.Skip(fieldTypeId); err != nil {
+					return err
+				}
+			}
+		default:
+			if err := iprot.Skip(fieldTypeId); err != nil {
+				return err
+			}
+		}
+		if err := iprot.ReadFieldEnd(); err != nil {
+			return err
+		}
+	}
+	if err := iprot.ReadStructEnd(); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = &RewardListResponse{}
+	if err := p.Success.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.Success), err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) ReadField1(iprot thrift.TProtocol) error {
+	p.E = &Exception{}
+	if err := p.E.Read(iprot); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.E), err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) Write(oprot thrift.TProtocol) error {
+	if err := oprot.WriteStructBegin("GetRewardList_result"); err != nil {
+		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+	}
+	if p != nil {
+		if err := p.writeField0(oprot); err != nil {
+			return err
+		}
+		if err := p.writeField1(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteFieldStop(); err != nil {
+		return thrift.PrependError("write field stop error: ", err)
+	}
+	if err := oprot.WriteStructEnd(); err != nil {
+		return thrift.PrependError("write struct stop error: ", err)
+	}
+	return nil
+}
+
+func (p *BlockChainServiceGetRewardListResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err := oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 0:success: ", p), err)
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.Success), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 0:success: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *BlockChainServiceGetRewardListResult) writeField1(oprot thrift.TProtocol) (err error) {
+	if p.IsSetE() {
+		if err := oprot.WriteFieldBegin("e", thrift.STRUCT, 1); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field begin error 1:e: ", p), err)
+		}
+		if err := p.E.Write(oprot); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.E), err)
+		}
+		if err := oprot.WriteFieldEnd(); err != nil {
+			return thrift.PrependError(fmt.Sprintf("%T write field end error 1:e: ", p), err)
+		}
+	}
+	return err
+}
+
+func (p *BlockChainServiceGetRewardListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("BlockChainServiceGetRewardListResult(%+v)", *p)
 }

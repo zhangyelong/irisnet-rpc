@@ -29,6 +29,7 @@ func Usage() {
 	fmt.Fprintln(os.Stderr, "  BalanceResponse GetBalance(BalanceRequest req)")
 	fmt.Fprintln(os.Stderr, "   GetTxList(TxListRequest req)")
 	fmt.Fprintln(os.Stderr, "  Tx GetTxDetail(TxDetailRequest req)")
+	fmt.Fprintln(os.Stderr, "  RewardListResponse GetRewardList(RewardListRequest req)")
 	fmt.Fprintln(os.Stderr)
 	os.Exit(0)
 }
@@ -131,19 +132,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxGas requires 1 args")
 			flag.Usage()
 		}
-		arg19 := flag.Arg(1)
-		mbTrans20 := thrift.NewTMemoryBufferLen(len(arg19))
-		defer mbTrans20.Close()
-		_, err21 := mbTrans20.WriteString(arg19)
-		if err21 != nil {
+		arg21 := flag.Arg(1)
+		mbTrans22 := thrift.NewTMemoryBufferLen(len(arg21))
+		defer mbTrans22.Close()
+		_, err23 := mbTrans22.WriteString(arg21)
+		if err23 != nil {
 			Usage()
 			return
 		}
-		factory22 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt23 := factory22.GetProtocol(mbTrans20)
+		factory24 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt25 := factory24.GetProtocol(mbTrans22)
 		argvalue0 := model.NewTxGasRequest()
-		err24 := argvalue0.Read(jsProt23)
-		if err24 != nil {
+		err26 := argvalue0.Read(jsProt25)
+		if err26 != nil {
 			Usage()
 			return
 		}
@@ -156,19 +157,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetSequence requires 1 args")
 			flag.Usage()
 		}
-		arg25 := flag.Arg(1)
-		mbTrans26 := thrift.NewTMemoryBufferLen(len(arg25))
-		defer mbTrans26.Close()
-		_, err27 := mbTrans26.WriteString(arg25)
-		if err27 != nil {
+		arg27 := flag.Arg(1)
+		mbTrans28 := thrift.NewTMemoryBufferLen(len(arg27))
+		defer mbTrans28.Close()
+		_, err29 := mbTrans28.WriteString(arg27)
+		if err29 != nil {
 			Usage()
 			return
 		}
-		factory28 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt29 := factory28.GetProtocol(mbTrans26)
+		factory30 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt31 := factory30.GetProtocol(mbTrans28)
 		argvalue0 := model.NewSequenceRequest()
-		err30 := argvalue0.Read(jsProt29)
-		if err30 != nil {
+		err32 := argvalue0.Read(jsProt31)
+		if err32 != nil {
 			Usage()
 			return
 		}
@@ -181,19 +182,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "BuildTx requires 1 args")
 			flag.Usage()
 		}
-		arg31 := flag.Arg(1)
-		mbTrans32 := thrift.NewTMemoryBufferLen(len(arg31))
-		defer mbTrans32.Close()
-		_, err33 := mbTrans32.WriteString(arg31)
-		if err33 != nil {
+		arg33 := flag.Arg(1)
+		mbTrans34 := thrift.NewTMemoryBufferLen(len(arg33))
+		defer mbTrans34.Close()
+		_, err35 := mbTrans34.WriteString(arg33)
+		if err35 != nil {
 			Usage()
 			return
 		}
-		factory34 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt35 := factory34.GetProtocol(mbTrans32)
+		factory36 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt37 := factory36.GetProtocol(mbTrans34)
 		argvalue0 := model.NewBuildTxRequest()
-		err36 := argvalue0.Read(jsProt35)
-		if err36 != nil {
+		err38 := argvalue0.Read(jsProt37)
+		if err38 != nil {
 			Usage()
 			return
 		}
@@ -206,19 +207,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "PostTx requires 1 args")
 			flag.Usage()
 		}
-		arg37 := flag.Arg(1)
-		mbTrans38 := thrift.NewTMemoryBufferLen(len(arg37))
-		defer mbTrans38.Close()
-		_, err39 := mbTrans38.WriteString(arg37)
-		if err39 != nil {
+		arg39 := flag.Arg(1)
+		mbTrans40 := thrift.NewTMemoryBufferLen(len(arg39))
+		defer mbTrans40.Close()
+		_, err41 := mbTrans40.WriteString(arg39)
+		if err41 != nil {
 			Usage()
 			return
 		}
-		factory40 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt41 := factory40.GetProtocol(mbTrans38)
+		factory42 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt43 := factory42.GetProtocol(mbTrans40)
 		argvalue0 := model.NewPostTxRequest()
-		err42 := argvalue0.Read(jsProt41)
-		if err42 != nil {
+		err44 := argvalue0.Read(jsProt43)
+		if err44 != nil {
 			Usage()
 			return
 		}
@@ -231,19 +232,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "SimulateTx requires 1 args")
 			flag.Usage()
 		}
-		arg43 := flag.Arg(1)
-		mbTrans44 := thrift.NewTMemoryBufferLen(len(arg43))
-		defer mbTrans44.Close()
-		_, err45 := mbTrans44.WriteString(arg43)
-		if err45 != nil {
+		arg45 := flag.Arg(1)
+		mbTrans46 := thrift.NewTMemoryBufferLen(len(arg45))
+		defer mbTrans46.Close()
+		_, err47 := mbTrans46.WriteString(arg45)
+		if err47 != nil {
 			Usage()
 			return
 		}
-		factory46 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt47 := factory46.GetProtocol(mbTrans44)
+		factory48 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt49 := factory48.GetProtocol(mbTrans46)
 		argvalue0 := model.NewSimulateTxRequest()
-		err48 := argvalue0.Read(jsProt47)
-		if err48 != nil {
+		err50 := argvalue0.Read(jsProt49)
+		if err50 != nil {
 			Usage()
 			return
 		}
@@ -256,19 +257,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetBalance requires 1 args")
 			flag.Usage()
 		}
-		arg49 := flag.Arg(1)
-		mbTrans50 := thrift.NewTMemoryBufferLen(len(arg49))
-		defer mbTrans50.Close()
-		_, err51 := mbTrans50.WriteString(arg49)
-		if err51 != nil {
+		arg51 := flag.Arg(1)
+		mbTrans52 := thrift.NewTMemoryBufferLen(len(arg51))
+		defer mbTrans52.Close()
+		_, err53 := mbTrans52.WriteString(arg51)
+		if err53 != nil {
 			Usage()
 			return
 		}
-		factory52 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt53 := factory52.GetProtocol(mbTrans50)
+		factory54 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt55 := factory54.GetProtocol(mbTrans52)
 		argvalue0 := model.NewBalanceRequest()
-		err54 := argvalue0.Read(jsProt53)
-		if err54 != nil {
+		err56 := argvalue0.Read(jsProt55)
+		if err56 != nil {
 			Usage()
 			return
 		}
@@ -281,19 +282,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxList requires 1 args")
 			flag.Usage()
 		}
-		arg55 := flag.Arg(1)
-		mbTrans56 := thrift.NewTMemoryBufferLen(len(arg55))
-		defer mbTrans56.Close()
-		_, err57 := mbTrans56.WriteString(arg55)
-		if err57 != nil {
+		arg57 := flag.Arg(1)
+		mbTrans58 := thrift.NewTMemoryBufferLen(len(arg57))
+		defer mbTrans58.Close()
+		_, err59 := mbTrans58.WriteString(arg57)
+		if err59 != nil {
 			Usage()
 			return
 		}
-		factory58 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt59 := factory58.GetProtocol(mbTrans56)
+		factory60 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt61 := factory60.GetProtocol(mbTrans58)
 		argvalue0 := model.NewTxListRequest()
-		err60 := argvalue0.Read(jsProt59)
-		if err60 != nil {
+		err62 := argvalue0.Read(jsProt61)
+		if err62 != nil {
 			Usage()
 			return
 		}
@@ -306,24 +307,49 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxDetail requires 1 args")
 			flag.Usage()
 		}
-		arg61 := flag.Arg(1)
-		mbTrans62 := thrift.NewTMemoryBufferLen(len(arg61))
-		defer mbTrans62.Close()
-		_, err63 := mbTrans62.WriteString(arg61)
-		if err63 != nil {
+		arg63 := flag.Arg(1)
+		mbTrans64 := thrift.NewTMemoryBufferLen(len(arg63))
+		defer mbTrans64.Close()
+		_, err65 := mbTrans64.WriteString(arg63)
+		if err65 != nil {
 			Usage()
 			return
 		}
-		factory64 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt65 := factory64.GetProtocol(mbTrans62)
+		factory66 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt67 := factory66.GetProtocol(mbTrans64)
 		argvalue0 := model.NewTxDetailRequest()
-		err66 := argvalue0.Read(jsProt65)
-		if err66 != nil {
+		err68 := argvalue0.Read(jsProt67)
+		if err68 != nil {
 			Usage()
 			return
 		}
 		value0 := argvalue0
 		fmt.Print(client.GetTxDetail(context.Background(), value0))
+		fmt.Print("\n")
+		break
+	case "GetRewardList":
+		if flag.NArg()-1 != 1 {
+			fmt.Fprintln(os.Stderr, "GetRewardList requires 1 args")
+			flag.Usage()
+		}
+		arg69 := flag.Arg(1)
+		mbTrans70 := thrift.NewTMemoryBufferLen(len(arg69))
+		defer mbTrans70.Close()
+		_, err71 := mbTrans70.WriteString(arg69)
+		if err71 != nil {
+			Usage()
+			return
+		}
+		factory72 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt73 := factory72.GetProtocol(mbTrans70)
+		argvalue0 := model.NewRewardListRequest()
+		err74 := argvalue0.Read(jsProt73)
+		if err74 != nil {
+			Usage()
+			return
+		}
+		value0 := argvalue0
+		fmt.Print(client.GetRewardList(context.Background(), value0))
 		fmt.Print("\n")
 		break
 	case "":
