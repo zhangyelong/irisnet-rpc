@@ -207,15 +207,6 @@ struct TxDetailRequest {
 	1: required string txHash
 }
 
-struct RewardListRequest {
-    1: string delAddr,
-    2: string valAddr,
-}
-
-struct RewardListResponse {
-    1: list<Reward> rewards
-}
-
 struct Reward {
     1: string delAddr
     2: list<Coin> amount,
@@ -228,6 +219,18 @@ struct Reward {
     9: string status,
     10:string withdrawAddr,
     11: list<RewardDetail> details
+}
+
+struct RewardInfoRequest {
+	1: string delAddr
+	2: string valAddr,
+}
+
+struct RewardInfoResponse {
+	1: string delAddr
+	2: string withdrawAddr
+	3: Coin totalRetrieveReward
+	4: list<Reward> rewards
 }
 
 

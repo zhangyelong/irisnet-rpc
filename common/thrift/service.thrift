@@ -27,6 +27,5 @@ service BlockChainService {
 	// get tx detail
 	model.Tx GetTxDetail(1: model.TxDetailRequest req) throws (1:model.Exception e),
 
-    // get reward list
-	model.RewardListResponse GetRewardList(1: model.RewardListRequest req) throws (1:model.Exception e),
+	model.RewardInfoResponse GetRewardInfo(1: model.RewardInfoRequest req) throws (1:model.Exception e),
 }

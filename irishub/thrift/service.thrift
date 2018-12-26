@@ -13,6 +13,4 @@ service IRISHubService {
 	list<model.Candidate> GetDelegatorCandidateList(1: model.DelegatorCandidateListRequest req) throws (1:model.Exception e),
 
 	model.TotalShareResponse GetDelegatorTotalShares(1: model.TotalShareRequest req) throws (1:model.Exception e),
-
-	model.TotalRewardInfoResponse GetTotalRewardInfo(1: model.TotalRewardInfoRequest req) throws (1:model.Exception e),
 }

@@ -95,14 +95,3 @@ struct ValidatorExRateRequest {
 struct ValidatorExRateResponse {
     1: double tokenSharesRate
 }
-
-struct TotalRewardInfoRequest {
-	1: string delAddr
-}
-
-struct TotalRewardInfoResponse {
-	1: string delAddr
-	2: string withdrawAddr
-	3: Coin totalRetrieveReward
-	4: Coin totalUnRetrieveReward
-}
