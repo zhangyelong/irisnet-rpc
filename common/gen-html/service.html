@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<title>Thrift module: service</title></head><body>
+<div class="container-fluid">
+<h1>Thrift module: service</h1>
+<table class="table-bordered table-striped table-condensed"><thead><th>Module</th><th>Services</th><th>Data types</th><th>Constants</th></thead>
+<tr>
+<td>service</td><td><a href="#Svc_BlockChainService">BlockChainService</a><br/>
+<ul>
+<li><a href="#Fn_BlockChainService_BuildTx">BuildTx</a></li>
+<li><a href="#Fn_BlockChainService_GetBalance">GetBalance</a></li>
+<li><a href="#Fn_BlockChainService_GetRewardInfo">GetRewardInfo</a></li>
+<li><a href="#Fn_BlockChainService_GetSequence">GetSequence</a></li>
+<li><a href="#Fn_BlockChainService_GetTxDetail">GetTxDetail</a></li>
+<li><a href="#Fn_BlockChainService_GetTxGas">GetTxGas</a></li>
+<li><a href="#Fn_BlockChainService_GetTxList">GetTxList</a></li>
+<li><a href="#Fn_BlockChainService_PostTx">PostTx</a></li>
+<li><a href="#Fn_BlockChainService_SimulateTx">SimulateTx</a></li>
+</ul>
+</td>
+<td></td>
+<td></code></td>
+</tr></table>
+<hr/><h2 id="Services">Services</h2>
+<h3 id="Svc_BlockChainService">Service: BlockChainService</h3>
+<div class="definition"><h4 id="Fn_BlockChainService_GetTxGas">Function: BlockChainService.GetTxGas</h4>
+<pre><code><a href="model.html#Struct_TxGasResponse">model.TxGasResponse</a></code> GetTxGas(<code><a href="model.html#Struct_TxGasRequest">model.TxGasRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_GetSequence">Function: BlockChainService.GetSequence</h4>
+<pre><code><a href="model.html#Struct_SequenceResponse">model.SequenceResponse</a></code> GetSequence(<code><a href="model.html#Struct_SequenceRequest">model.SequenceRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_BuildTx">Function: BlockChainService.BuildTx</h4>
+<pre><code><a href="model.html#Struct_BuildTxResponse">model.BuildTxResponse</a></code> BuildTx(<code><a href="model.html#Struct_BuildTxRequest">model.BuildTxRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_PostTx">Function: BlockChainService.PostTx</h4>
+<pre><code><a href="model.html#Struct_PostTxResponse">model.PostTxResponse</a></code> PostTx(<code><a href="model.html#Struct_PostTxRequest">model.PostTxRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_SimulateTx">Function: BlockChainService.SimulateTx</h4>
+<pre><code><a href="model.html#Struct_SimulateTxResponse">model.SimulateTxResponse</a></code> SimulateTx(<code><a href="model.html#Struct_SimulateTxRequest">model.SimulateTxRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_GetBalance">Function: BlockChainService.GetBalance</h4>
+<pre><code><a href="model.html#Struct_BalanceResponse">model.BalanceResponse</a></code> GetBalance(<code><a href="model.html#Struct_BalanceRequest">model.BalanceRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_GetTxList">Function: BlockChainService.GetTxList</h4>
+<pre><code>list&lt;<code><a href="model.html#Struct_Tx">model.Tx</a></code>&gt;</code> GetTxList(<code><a href="model.html#Struct_TxListRequest">model.TxListRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_GetTxDetail">Function: BlockChainService.GetTxDetail</h4>
+<pre><code><a href="model.html#Struct_Tx">model.Tx</a></code> GetTxDetail(<code><a href="model.html#Struct_TxDetailRequest">model.TxDetailRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div><div class="definition"><h4 id="Fn_BlockChainService_GetRewardInfo">Function: BlockChainService.GetRewardInfo</h4>
+<pre><code><a href="model.html#Struct_RewardInfoResponse">model.RewardInfoResponse</a></code> GetRewardInfo(<code><a href="model.html#Struct_RewardInfoRequest">model.RewardInfoRequest</a></code> req)
+    throws <code><a href="model.html#Struct_Exception">model.Exception</a></code>
+</pre></div></div></body></html>
