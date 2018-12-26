@@ -291,100 +291,102 @@ Memo.prototype.write = function(output) {
   return;
 };
 
-var GasPrice = module.exports.GasPrice = function (args) {
-    this.minGasPrice = null;
-    this.maxGasPrice = null;
-    this.avgGasPrice = null;
-    this.denom = null;
-    if (args) {
-        if (args.minGasPrice !== undefined && args.minGasPrice !== null) {
-            this.minGasPrice = args.minGasPrice;
-        }
-        if (args.maxGasPrice !== undefined && args.maxGasPrice !== null) {
-            this.maxGasPrice = args.maxGasPrice;
-        }
-        if (args.avgGasPrice !== undefined && args.avgGasPrice !== null) {
-            this.avgGasPrice = args.avgGasPrice;
-        }
-        if (args.denom !== undefined && args.denom !== null) {
-            this.denom = args.denom;
-        }
+var GasPrice = module.exports.GasPrice = function(args) {
+  this.minGasPrice = null;
+  this.maxGasPrice = null;
+  this.avgGasPrice = null;
+  this.denom = null;
+  if (args) {
+    if (args.minGasPrice !== undefined && args.minGasPrice !== null) {
+      this.minGasPrice = args.minGasPrice;
     }
+    if (args.maxGasPrice !== undefined && args.maxGasPrice !== null) {
+      this.maxGasPrice = args.maxGasPrice;
+    }
+    if (args.avgGasPrice !== undefined && args.avgGasPrice !== null) {
+      this.avgGasPrice = args.avgGasPrice;
+    }
+    if (args.denom !== undefined && args.denom !== null) {
+      this.denom = args.denom;
+    }
+  }
 };
 GasPrice.prototype = {};
-GasPrice.prototype.read = function (input) {
-    input.readStructBegin();
-    while (true) {
-        var ret = input.readFieldBegin();
-        var fname = ret.fname;
-        var ftype = ret.ftype;
-        var fid = ret.fid;
-        if (ftype == Thrift.Type.STOP) {
-            break;
-        }
-        switch (fid) {
-            case 1:
-                if (ftype == Thrift.Type.DOUBLE) {
-                    this.minGasPrice = input.readDouble();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 2:
-                if (ftype == Thrift.Type.DOUBLE) {
-                    this.maxGasPrice = input.readDouble();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 3:
-                if (ftype == Thrift.Type.DOUBLE) {
-                    this.avgGasPrice = input.readDouble();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 4:
-                if (ftype == Thrift.Type.STRING) {
-                    this.denom = input.readString();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            default:
-                input.skip(ftype);
-        }
-        input.readFieldEnd();
+GasPrice.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
     }
-    input.readStructEnd();
-    return;
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.minGasPrice = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.maxGasPrice = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.avgGasPrice = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRING) {
+        this.denom = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
 };
 
-GasPrice.prototype.write = function (output) {
-    output.writeStructBegin('GasPrice');
-    if (this.minGasPrice !== null && this.minGasPrice !== undefined) {
-        output.writeFieldBegin('minGasPrice', Thrift.Type.DOUBLE, 1);
-        output.writeDouble(this.minGasPrice);
-        output.writeFieldEnd();
-    }
-    if (this.maxGasPrice !== null && this.maxGasPrice !== undefined) {
-        output.writeFieldBegin('maxGasPrice', Thrift.Type.DOUBLE, 2);
-        output.writeDouble(this.maxGasPrice);
-        output.writeFieldEnd();
-    }
-    if (this.avgGasPrice !== null && this.avgGasPrice !== undefined) {
-        output.writeFieldBegin('avgGasPrice', Thrift.Type.DOUBLE, 3);
-        output.writeDouble(this.avgGasPrice);
-        output.writeFieldEnd();
-    }
-    if (this.denom !== null && this.denom !== undefined) {
-        output.writeFieldBegin('denom', Thrift.Type.STRING, 4);
-        output.writeString(this.denom);
-        output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
+GasPrice.prototype.write = function(output) {
+  output.writeStructBegin('GasPrice');
+  if (this.minGasPrice !== null && this.minGasPrice !== undefined) {
+    output.writeFieldBegin('minGasPrice', Thrift.Type.DOUBLE, 1);
+    output.writeDouble(this.minGasPrice);
+    output.writeFieldEnd();
+  }
+  if (this.maxGasPrice !== null && this.maxGasPrice !== undefined) {
+    output.writeFieldBegin('maxGasPrice', Thrift.Type.DOUBLE, 2);
+    output.writeDouble(this.maxGasPrice);
+    output.writeFieldEnd();
+  }
+  if (this.avgGasPrice !== null && this.avgGasPrice !== undefined) {
+    output.writeFieldBegin('avgGasPrice', Thrift.Type.DOUBLE, 3);
+    output.writeDouble(this.avgGasPrice);
+    output.writeFieldEnd();
+  }
+  if (this.denom !== null && this.denom !== undefined) {
+    output.writeFieldBegin('denom', Thrift.Type.STRING, 4);
+    output.writeString(this.denom);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
 };
 
 var Tx = module.exports.Tx = function(args) {
@@ -400,9 +402,9 @@ var Tx = module.exports.Tx = function(args) {
   this.height = null;
   this.status = null;
   this.ext = null;
-    this.gasLimit = null;
-    this.gasUsed = null;
-    this.actualFee = null;
+  this.gasLimit = null;
+  this.gasUsed = null;
+  this.actualFee = null;
   if (args) {
     if (args.sequence !== undefined && args.sequence !== null) {
       this.sequence = args.sequence;
@@ -440,15 +442,15 @@ var Tx = module.exports.Tx = function(args) {
     if (args.ext !== undefined && args.ext !== null) {
       this.ext = args.ext;
     }
-      if (args.gasLimit !== undefined && args.gasLimit !== null) {
-          this.gasLimit = args.gasLimit;
-      }
-      if (args.gasUsed !== undefined && args.gasUsed !== null) {
-          this.gasUsed = args.gasUsed;
-      }
-      if (args.actualFee !== undefined && args.actualFee !== null) {
-          this.actualFee = new ttypes.Fee(args.actualFee);
-      }
+    if (args.gasLimit !== undefined && args.gasLimit !== null) {
+      this.gasLimit = args.gasLimit;
+    }
+    if (args.gasUsed !== undefined && args.gasUsed !== null) {
+      this.gasUsed = args.gasUsed;
+    }
+    if (args.actualFee !== undefined && args.actualFee !== null) {
+      this.actualFee = new ttypes.Fee(args.actualFee);
+    }
   }
 };
 Tx.prototype = {};
@@ -516,7 +518,7 @@ Tx.prototype.read = function(input) {
       } else {
         input.skip(ftype);
       }
-          break;
+      break;
       case 6:
       if (ftype == Thrift.Type.STRUCT) {
         this.memo = new ttypes.Memo();
@@ -566,29 +568,29 @@ Tx.prototype.read = function(input) {
       } else {
         input.skip(ftype);
       }
-          break;
-        case 13:
-            if (ftype == Thrift.Type.DOUBLE) {
-                this.gasLimit = input.readDouble();
-            } else {
-                input.skip(ftype);
-            }
-            break;
-        case 14:
-            if (ftype == Thrift.Type.DOUBLE) {
-                this.gasUsed = input.readDouble();
-            } else {
-                input.skip(ftype);
-            }
-            break;
-        case 15:
-            if (ftype == Thrift.Type.STRUCT) {
-                this.actualFee = new ttypes.Fee();
-                this.actualFee.read(input);
-            } else {
-                input.skip(ftype);
-            }
-            break;
+      break;
+      case 13:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.gasLimit = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 14:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.gasUsed = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 15:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.actualFee = new ttypes.Fee();
+        this.actualFee.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -669,21 +671,21 @@ Tx.prototype.write = function(output) {
     output.writeBinary(this.ext);
     output.writeFieldEnd();
   }
-    if (this.gasLimit !== null && this.gasLimit !== undefined) {
-        output.writeFieldBegin('gasLimit', Thrift.Type.DOUBLE, 13);
-        output.writeDouble(this.gasLimit);
-        output.writeFieldEnd();
-    }
-    if (this.gasUsed !== null && this.gasUsed !== undefined) {
-        output.writeFieldBegin('gasUsed', Thrift.Type.DOUBLE, 14);
-        output.writeDouble(this.gasUsed);
-        output.writeFieldEnd();
-    }
-    if (this.actualFee !== null && this.actualFee !== undefined) {
-        output.writeFieldBegin('actualFee', Thrift.Type.STRUCT, 15);
-        this.actualFee.write(output);
-        output.writeFieldEnd();
-    }
+  if (this.gasLimit !== null && this.gasLimit !== undefined) {
+    output.writeFieldBegin('gasLimit', Thrift.Type.DOUBLE, 13);
+    output.writeDouble(this.gasLimit);
+    output.writeFieldEnd();
+  }
+  if (this.gasUsed !== null && this.gasUsed !== undefined) {
+    output.writeFieldBegin('gasUsed', Thrift.Type.DOUBLE, 14);
+    output.writeDouble(this.gasUsed);
+    output.writeFieldEnd();
+  }
+  if (this.actualFee !== null && this.actualFee !== undefined) {
+    output.writeFieldBegin('actualFee', Thrift.Type.STRUCT, 15);
+    this.actualFee.write(output);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -758,136 +760,140 @@ Exception.prototype.write = function(output) {
   return;
 };
 
-var TxGasRequest = module.exports.TxGasRequest = function (args) {
-    this.txType = null;
-    if (args) {
-        if (args.txType !== undefined && args.txType !== null) {
-            this.txType = args.txType;
-        }
+var TxGasRequest = module.exports.TxGasRequest = function(args) {
+  this.txType = null;
+  if (args) {
+    if (args.txType !== undefined && args.txType !== null) {
+      this.txType = args.txType;
     }
+  }
 };
 TxGasRequest.prototype = {};
-TxGasRequest.prototype.read = function (input) {
-    input.readStructBegin();
-    while (true) {
-        var ret = input.readFieldBegin();
-        var fname = ret.fname;
-        var ftype = ret.ftype;
-        var fid = ret.fid;
-        if (ftype == Thrift.Type.STOP) {
-            break;
-        }
-        switch (fid) {
-            case 1:
-                if (ftype == Thrift.Type.STRING) {
-                    this.txType = input.readString();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 0:
-                input.skip(ftype);
-                break;
-            default:
-                input.skip(ftype);
-        }
-        input.readFieldEnd();
+TxGasRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
     }
-    input.readStructEnd();
-    return;
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.txType = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
 };
 
-TxGasRequest.prototype.write = function (output) {
-    output.writeStructBegin('TxGasRequest');
-    if (this.txType !== null && this.txType !== undefined) {
-        output.writeFieldBegin('txType', Thrift.Type.STRING, 1);
-        output.writeString(this.txType);
-        output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
+TxGasRequest.prototype.write = function(output) {
+  output.writeStructBegin('TxGasRequest');
+  if (this.txType !== null && this.txType !== undefined) {
+    output.writeFieldBegin('txType', Thrift.Type.STRING, 1);
+    output.writeString(this.txType);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
 };
 
-var TxGasResponse = module.exports.TxGasResponse = function (args) {
-    this.txType = null;
-    this.gasLimit = null;
-    this.gasPrice = null;
-    if (args) {
-        if (args.txType !== undefined && args.txType !== null) {
-            this.txType = args.txType;
-        }
-        if (args.gasLimit !== undefined && args.gasLimit !== null) {
-            this.gasLimit = args.gasLimit;
-        }
-        if (args.gasPrice !== undefined && args.gasPrice !== null) {
-            this.gasPrice = new ttypes.GasPrice(args.gasPrice);
-        }
+var TxGasResponse = module.exports.TxGasResponse = function(args) {
+  this.txType = null;
+  this.gasLimit = null;
+  this.gasPrice = null;
+  if (args) {
+    if (args.txType !== undefined && args.txType !== null) {
+      this.txType = args.txType;
     }
+    if (args.gasLimit !== undefined && args.gasLimit !== null) {
+      this.gasLimit = args.gasLimit;
+    }
+    if (args.gasPrice !== undefined && args.gasPrice !== null) {
+      this.gasPrice = new ttypes.GasPrice(args.gasPrice);
+    }
+  }
 };
 TxGasResponse.prototype = {};
-TxGasResponse.prototype.read = function (input) {
-    input.readStructBegin();
-    while (true) {
-        var ret = input.readFieldBegin();
-        var fname = ret.fname;
-        var ftype = ret.ftype;
-        var fid = ret.fid;
-        if (ftype == Thrift.Type.STOP) {
-            break;
-        }
-        switch (fid) {
-            case 1:
-                if (ftype == Thrift.Type.STRING) {
-                    this.txType = input.readString();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 2:
-                if (ftype == Thrift.Type.DOUBLE) {
-                    this.gasLimit = input.readDouble();
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            case 3:
-                if (ftype == Thrift.Type.STRUCT) {
-                    this.gasPrice = new ttypes.GasPrice();
-                    this.gasPrice.read(input);
-                } else {
-                    input.skip(ftype);
-                }
-                break;
-            default:
-                input.skip(ftype);
-        }
-        input.readFieldEnd();
+TxGasResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
     }
-    input.readStructEnd();
-    return;
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.txType = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.DOUBLE) {
+        this.gasLimit = input.readDouble();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.gasPrice = new ttypes.GasPrice();
+        this.gasPrice.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
 };
 
-TxGasResponse.prototype.write = function (output) {
-    output.writeStructBegin('TxGasResponse');
-    if (this.txType !== null && this.txType !== undefined) {
-        output.writeFieldBegin('txType', Thrift.Type.STRING, 1);
-        output.writeString(this.txType);
-        output.writeFieldEnd();
-    }
-    if (this.gasLimit !== null && this.gasLimit !== undefined) {
-        output.writeFieldBegin('gasLimit', Thrift.Type.DOUBLE, 2);
-        output.writeDouble(this.gasLimit);
-        output.writeFieldEnd();
-    }
-    if (this.gasPrice !== null && this.gasPrice !== undefined) {
-        output.writeFieldBegin('gasPrice', Thrift.Type.STRUCT, 3);
-        this.gasPrice.write(output);
-        output.writeFieldEnd();
-    }
-    output.writeFieldStop();
-    output.writeStructEnd();
-    return;
+TxGasResponse.prototype.write = function(output) {
+  output.writeStructBegin('TxGasResponse');
+  if (this.txType !== null && this.txType !== undefined) {
+    output.writeFieldBegin('txType', Thrift.Type.STRING, 1);
+    output.writeString(this.txType);
+    output.writeFieldEnd();
+  }
+  if (this.gasLimit !== null && this.gasLimit !== undefined) {
+    output.writeFieldBegin('gasLimit', Thrift.Type.DOUBLE, 2);
+    output.writeDouble(this.gasLimit);
+    output.writeFieldEnd();
+  }
+  if (this.gasPrice !== null && this.gasPrice !== undefined) {
+    output.writeFieldBegin('gasPrice', Thrift.Type.STRUCT, 3);
+    this.gasPrice.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
 };
 
 var SequenceRequest = module.exports.SequenceRequest = function(args) {
@@ -1235,6 +1241,231 @@ PostTxResponse.prototype.write = function(output) {
   return;
 };
 
+var SimulateTxRequest = module.exports.SimulateTxRequest = function(args) {
+  this.tx = null;
+  if (args) {
+    if (args.tx !== undefined && args.tx !== null) {
+      this.tx = args.tx;
+    }
+  }
+};
+SimulateTxRequest.prototype = {};
+SimulateTxRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.tx = input.readBinary();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SimulateTxRequest.prototype.write = function(output) {
+  output.writeStructBegin('SimulateTxRequest');
+  if (this.tx !== null && this.tx !== undefined) {
+    output.writeFieldBegin('tx', Thrift.Type.STRING, 1);
+    output.writeBinary(this.tx);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var RewardDetail = module.exports.RewardDetail = function(args) {
+  this.valAddr = null;
+  this.name = null;
+  this.amount = null;
+  if (args) {
+    if (args.valAddr !== undefined && args.valAddr !== null) {
+      this.valAddr = args.valAddr;
+    }
+    if (args.name !== undefined && args.name !== null) {
+      this.name = args.name;
+    }
+    if (args.amount !== undefined && args.amount !== null) {
+      this.amount = new ttypes.Coin(args.amount);
+    }
+  }
+};
+RewardDetail.prototype = {};
+RewardDetail.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.valAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.name = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.amount = new ttypes.Coin();
+        this.amount.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RewardDetail.prototype.write = function(output) {
+  output.writeStructBegin('RewardDetail');
+  if (this.valAddr !== null && this.valAddr !== undefined) {
+    output.writeFieldBegin('valAddr', Thrift.Type.STRING, 1);
+    output.writeString(this.valAddr);
+    output.writeFieldEnd();
+  }
+  if (this.name !== null && this.name !== undefined) {
+    output.writeFieldBegin('name', Thrift.Type.STRING, 2);
+    output.writeString(this.name);
+    output.writeFieldEnd();
+  }
+  if (this.amount !== null && this.amount !== undefined) {
+    output.writeFieldBegin('amount', Thrift.Type.STRUCT, 3);
+    this.amount.write(output);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var SimulateTxResponse = module.exports.SimulateTxResponse = function(args) {
+  this.gas = null;
+  this.details = null;
+  if (args) {
+    if (args.gas !== undefined && args.gas !== null) {
+      this.gas = args.gas;
+    }
+    if (args.details !== undefined && args.details !== null) {
+      this.details = Thrift.copyList(args.details, [ttypes.RewardDetail]);
+    }
+  }
+};
+SimulateTxResponse.prototype = {};
+SimulateTxResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.I64) {
+        this.gas = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size8 = 0;
+        var _rtmp312;
+        this.details = [];
+        var _etype11 = 0;
+        _rtmp312 = input.readListBegin();
+        _etype11 = _rtmp312.etype;
+        _size8 = _rtmp312.size;
+        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        {
+          var elem14 = null;
+          elem14 = new ttypes.RewardDetail();
+          elem14.read(input);
+          this.details.push(elem14);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+SimulateTxResponse.prototype.write = function(output) {
+  output.writeStructBegin('SimulateTxResponse');
+  if (this.gas !== null && this.gas !== undefined) {
+    output.writeFieldBegin('gas', Thrift.Type.I64, 1);
+    output.writeI64(this.gas);
+    output.writeFieldEnd();
+  }
+  if (this.details !== null && this.details !== undefined) {
+    output.writeFieldBegin('details', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.details.length);
+    for (var iter15 in this.details)
+    {
+      if (this.details.hasOwnProperty(iter15))
+      {
+        iter15 = this.details[iter15];
+        iter15.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
 var BalanceRequest = module.exports.BalanceRequest = function(args) {
   this.address = null;
   if (args) {
@@ -1312,19 +1543,19 @@ BalanceResponse.prototype.read = function(input) {
     {
       case 1:
       if (ftype == Thrift.Type.LIST) {
-        var _size8 = 0;
-        var _rtmp312;
+        var _size16 = 0;
+        var _rtmp320;
         this.coins = [];
-        var _etype11 = 0;
-        _rtmp312 = input.readListBegin();
-        _etype11 = _rtmp312.etype;
-        _size8 = _rtmp312.size;
-        for (var _i13 = 0; _i13 < _size8; ++_i13)
+        var _etype19 = 0;
+        _rtmp320 = input.readListBegin();
+        _etype19 = _rtmp320.etype;
+        _size16 = _rtmp320.size;
+        for (var _i21 = 0; _i21 < _size16; ++_i21)
         {
-          var elem14 = null;
-          elem14 = new ttypes.Coin();
-          elem14.read(input);
-          this.coins.push(elem14);
+          var elem22 = null;
+          elem22 = new ttypes.Coin();
+          elem22.read(input);
+          this.coins.push(elem22);
         }
         input.readListEnd();
       } else {
@@ -1348,12 +1579,12 @@ BalanceResponse.prototype.write = function(output) {
   if (this.coins !== null && this.coins !== undefined) {
     output.writeFieldBegin('coins', Thrift.Type.LIST, 1);
     output.writeListBegin(Thrift.Type.STRUCT, this.coins.length);
-    for (var iter15 in this.coins)
+    for (var iter23 in this.coins)
     {
-      if (this.coins.hasOwnProperty(iter15))
+      if (this.coins.hasOwnProperty(iter23))
       {
-        iter15 = this.coins[iter15];
-        iter15.write(output);
+        iter23 = this.coins[iter23];
+        iter23.write(output);
       }
     }
     output.writeListEnd();
@@ -1375,6 +1606,7 @@ var TxListRequest = module.exports.TxListRequest = function(args) {
   this.sort = null;
   this.q = null;
   this.ext = null;
+  this.height = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
@@ -1409,6 +1641,9 @@ var TxListRequest = module.exports.TxListRequest = function(args) {
     }
     if (args.ext !== undefined && args.ext !== null) {
       this.ext = args.ext;
+    }
+    if (args.height !== undefined && args.height !== null) {
+      this.height = args.height;
     }
   }
 };
@@ -1496,6 +1731,13 @@ TxListRequest.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
+      case 11:
+      if (ftype == Thrift.Type.I64) {
+        this.height = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
       default:
         input.skip(ftype);
     }
@@ -1557,6 +1799,11 @@ TxListRequest.prototype.write = function(output) {
     output.writeBinary(this.ext);
     output.writeFieldEnd();
   }
+  if (this.height !== null && this.height !== undefined) {
+    output.writeFieldBegin('height', Thrift.Type.I64, 11);
+    output.writeI64(this.height);
+    output.writeFieldEnd();
+  }
   output.writeFieldStop();
   output.writeStructEnd();
   return;
@@ -1610,6 +1857,406 @@ TxDetailRequest.prototype.write = function(output) {
   if (this.txHash !== null && this.txHash !== undefined) {
     output.writeFieldBegin('txHash', Thrift.Type.STRING, 1);
     output.writeString(this.txHash);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var RewardListRequest = module.exports.RewardListRequest = function(args) {
+  this.delAddr = null;
+  this.valAddr = null;
+  if (args) {
+    if (args.delAddr !== undefined && args.delAddr !== null) {
+      this.delAddr = args.delAddr;
+    }
+    if (args.valAddr !== undefined && args.valAddr !== null) {
+      this.valAddr = args.valAddr;
+    }
+  }
+};
+RewardListRequest.prototype = {};
+RewardListRequest.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.delAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.STRING) {
+        this.valAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RewardListRequest.prototype.write = function(output) {
+  output.writeStructBegin('RewardListRequest');
+  if (this.delAddr !== null && this.delAddr !== undefined) {
+    output.writeFieldBegin('delAddr', Thrift.Type.STRING, 1);
+    output.writeString(this.delAddr);
+    output.writeFieldEnd();
+  }
+  if (this.valAddr !== null && this.valAddr !== undefined) {
+    output.writeFieldBegin('valAddr', Thrift.Type.STRING, 2);
+    output.writeString(this.valAddr);
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var RewardListResponse = module.exports.RewardListResponse = function(args) {
+  this.rewards = null;
+  if (args) {
+    if (args.rewards !== undefined && args.rewards !== null) {
+      this.rewards = Thrift.copyList(args.rewards, [null]);
+    }
+  }
+};
+RewardListResponse.prototype = {};
+RewardListResponse.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.LIST) {
+        var _size24 = 0;
+        var _rtmp328;
+        this.rewards = [];
+        var _etype27 = 0;
+        _rtmp328 = input.readListBegin();
+        _etype27 = _rtmp328.etype;
+        _size24 = _rtmp328.size;
+        for (var _i29 = 0; _i29 < _size24; ++_i29)
+        {
+          var elem30 = null;
+          elem30 = new ttypes.Reward();
+          elem30.read(input);
+          this.rewards.push(elem30);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 0:
+        input.skip(ftype);
+        break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+RewardListResponse.prototype.write = function(output) {
+  output.writeStructBegin('RewardListResponse');
+  if (this.rewards !== null && this.rewards !== undefined) {
+    output.writeFieldBegin('rewards', Thrift.Type.LIST, 1);
+    output.writeListBegin(Thrift.Type.STRUCT, this.rewards.length);
+    for (var iter31 in this.rewards)
+    {
+      if (this.rewards.hasOwnProperty(iter31))
+      {
+        iter31 = this.rewards[iter31];
+        iter31.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  output.writeFieldStop();
+  output.writeStructEnd();
+  return;
+};
+
+var Reward = module.exports.Reward = function(args) {
+  this.delAddr = null;
+  this.amount = null;
+  this.fee = null;
+  this.memo = null;
+  this.type = null;
+  this.txHash = null;
+  this.time = null;
+  this.height = null;
+  this.status = null;
+  this.withdrawAddr = null;
+  this.details = null;
+  if (args) {
+    if (args.delAddr !== undefined && args.delAddr !== null) {
+      this.delAddr = args.delAddr;
+    }
+    if (args.amount !== undefined && args.amount !== null) {
+      this.amount = Thrift.copyList(args.amount, [ttypes.Coin]);
+    }
+    if (args.fee !== undefined && args.fee !== null) {
+      this.fee = new ttypes.Fee(args.fee);
+    }
+    if (args.memo !== undefined && args.memo !== null) {
+      this.memo = new ttypes.Memo(args.memo);
+    }
+    if (args.type !== undefined && args.type !== null) {
+      this.type = args.type;
+    }
+    if (args.txHash !== undefined && args.txHash !== null) {
+      this.txHash = args.txHash;
+    }
+    if (args.time !== undefined && args.time !== null) {
+      this.time = args.time;
+    }
+    if (args.height !== undefined && args.height !== null) {
+      this.height = args.height;
+    }
+    if (args.status !== undefined && args.status !== null) {
+      this.status = args.status;
+    }
+    if (args.withdrawAddr !== undefined && args.withdrawAddr !== null) {
+      this.withdrawAddr = args.withdrawAddr;
+    }
+    if (args.details !== undefined && args.details !== null) {
+      this.details = Thrift.copyList(args.details, [ttypes.RewardDetail]);
+    }
+  }
+};
+Reward.prototype = {};
+Reward.prototype.read = function(input) {
+  input.readStructBegin();
+  while (true)
+  {
+    var ret = input.readFieldBegin();
+    var fname = ret.fname;
+    var ftype = ret.ftype;
+    var fid = ret.fid;
+    if (ftype == Thrift.Type.STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+      if (ftype == Thrift.Type.STRING) {
+        this.delAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 2:
+      if (ftype == Thrift.Type.LIST) {
+        var _size32 = 0;
+        var _rtmp336;
+        this.amount = [];
+        var _etype35 = 0;
+        _rtmp336 = input.readListBegin();
+        _etype35 = _rtmp336.etype;
+        _size32 = _rtmp336.size;
+        for (var _i37 = 0; _i37 < _size32; ++_i37)
+        {
+          var elem38 = null;
+          elem38 = new ttypes.Coin();
+          elem38.read(input);
+          this.amount.push(elem38);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 3:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.fee = new ttypes.Fee();
+        this.fee.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 4:
+      if (ftype == Thrift.Type.STRUCT) {
+        this.memo = new ttypes.Memo();
+        this.memo.read(input);
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 5:
+      if (ftype == Thrift.Type.STRING) {
+        this.type = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 6:
+      if (ftype == Thrift.Type.STRING) {
+        this.txHash = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 7:
+      if (ftype == Thrift.Type.STRING) {
+        this.time = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 8:
+      if (ftype == Thrift.Type.I64) {
+        this.height = input.readI64();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 9:
+      if (ftype == Thrift.Type.STRING) {
+        this.status = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 10:
+      if (ftype == Thrift.Type.STRING) {
+        this.withdrawAddr = input.readString();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      case 11:
+      if (ftype == Thrift.Type.LIST) {
+        var _size39 = 0;
+        var _rtmp343;
+        this.details = [];
+        var _etype42 = 0;
+        _rtmp343 = input.readListBegin();
+        _etype42 = _rtmp343.etype;
+        _size39 = _rtmp343.size;
+        for (var _i44 = 0; _i44 < _size39; ++_i44)
+        {
+          var elem45 = null;
+          elem45 = new ttypes.RewardDetail();
+          elem45.read(input);
+          this.details.push(elem45);
+        }
+        input.readListEnd();
+      } else {
+        input.skip(ftype);
+      }
+      break;
+      default:
+        input.skip(ftype);
+    }
+    input.readFieldEnd();
+  }
+  input.readStructEnd();
+  return;
+};
+
+Reward.prototype.write = function(output) {
+  output.writeStructBegin('Reward');
+  if (this.delAddr !== null && this.delAddr !== undefined) {
+    output.writeFieldBegin('delAddr', Thrift.Type.STRING, 1);
+    output.writeString(this.delAddr);
+    output.writeFieldEnd();
+  }
+  if (this.amount !== null && this.amount !== undefined) {
+    output.writeFieldBegin('amount', Thrift.Type.LIST, 2);
+    output.writeListBegin(Thrift.Type.STRUCT, this.amount.length);
+    for (var iter46 in this.amount)
+    {
+      if (this.amount.hasOwnProperty(iter46))
+      {
+        iter46 = this.amount[iter46];
+        iter46.write(output);
+      }
+    }
+    output.writeListEnd();
+    output.writeFieldEnd();
+  }
+  if (this.fee !== null && this.fee !== undefined) {
+    output.writeFieldBegin('fee', Thrift.Type.STRUCT, 3);
+    this.fee.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.memo !== null && this.memo !== undefined) {
+    output.writeFieldBegin('memo', Thrift.Type.STRUCT, 4);
+    this.memo.write(output);
+    output.writeFieldEnd();
+  }
+  if (this.type !== null && this.type !== undefined) {
+    output.writeFieldBegin('type', Thrift.Type.STRING, 5);
+    output.writeString(this.type);
+    output.writeFieldEnd();
+  }
+  if (this.txHash !== null && this.txHash !== undefined) {
+    output.writeFieldBegin('txHash', Thrift.Type.STRING, 6);
+    output.writeString(this.txHash);
+    output.writeFieldEnd();
+  }
+  if (this.time !== null && this.time !== undefined) {
+    output.writeFieldBegin('time', Thrift.Type.STRING, 7);
+    output.writeString(this.time);
+    output.writeFieldEnd();
+  }
+  if (this.height !== null && this.height !== undefined) {
+    output.writeFieldBegin('height', Thrift.Type.I64, 8);
+    output.writeI64(this.height);
+    output.writeFieldEnd();
+  }
+  if (this.status !== null && this.status !== undefined) {
+    output.writeFieldBegin('status', Thrift.Type.STRING, 9);
+    output.writeString(this.status);
+    output.writeFieldEnd();
+  }
+  if (this.withdrawAddr !== null && this.withdrawAddr !== undefined) {
+    output.writeFieldBegin('withdrawAddr', Thrift.Type.STRING, 10);
+    output.writeString(this.withdrawAddr);
+    output.writeFieldEnd();
+  }
+  if (this.details !== null && this.details !== undefined) {
+    output.writeFieldBegin('details', Thrift.Type.LIST, 11);
+    output.writeListBegin(Thrift.Type.STRUCT, this.details.length);
+    for (var iter47 in this.details)
+    {
+      if (this.details.hasOwnProperty(iter47))
+      {
+        iter47 = this.details[iter47];
+        iter47.write(output);
+      }
+    }
+    output.writeListEnd();
     output.writeFieldEnd();
   }
   output.writeFieldStop();

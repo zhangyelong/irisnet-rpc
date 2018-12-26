@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<title>Thrift module: model</title></head><body>
+<div class="container-fluid">
+<h1>Thrift module: model</h1>
+<pre>coin struct
+@param amount, token amount
+@param denom, name of token
+</pre><br/><table class="table-bordered table-striped table-condensed"><thead><th>Module</th><th>Services</th><th>Data types</th><th>Constants</th></thead>
+<tr>
+<td>model</td><td></td>
+<td><a href="#Struct_Address">Address</a><br/>
+<a href="#Struct_BalanceRequest">BalanceRequest</a><br/>
+<a href="#Struct_BalanceResponse">BalanceResponse</a><br/>
+<a href="#Struct_BuildTxRequest">BuildTxRequest</a><br/>
+<a href="#Struct_BuildTxResponse">BuildTxResponse</a><br/>
+<a href="#Struct_Coin">Coin</a><br/>
+<a href="#Struct_Exception">Exception</a><br/>
+<a href="#Struct_Fee">Fee</a><br/>
+<a href="#Struct_GasPrice">GasPrice</a><br/>
+<a href="#Struct_Memo">Memo</a><br/>
+<a href="#Struct_PostTxRequest">PostTxRequest</a><br/>
+<a href="#Struct_PostTxResponse">PostTxResponse</a><br/>
+<a href="#Struct_Reward">Reward</a><br/>
+<a href="#Struct_RewardDetail">RewardDetail</a><br/>
+<a href="#Struct_RewardInfoRequest">RewardInfoRequest</a><br/>
+<a href="#Struct_RewardInfoResponse">RewardInfoResponse</a><br/>
+<a href="#Struct_SequenceRequest">SequenceRequest</a><br/>
+<a href="#Struct_SequenceResponse">SequenceResponse</a><br/>
+<a href="#Struct_SimulateTxRequest">SimulateTxRequest</a><br/>
+<a href="#Struct_SimulateTxResponse">SimulateTxResponse</a><br/>
+<a href="#Struct_Tx">Tx</a><br/>
+<a href="#Struct_TxDetailRequest">TxDetailRequest</a><br/>
+<a href="#Struct_TxGasRequest">TxGasRequest</a><br/>
+<a href="#Struct_TxGasResponse">TxGasResponse</a><br/>
+<a href="#Struct_TxListRequest">TxListRequest</a><br/>
+</td>
+<td></code></td>
+</tr></table>
+<hr/><h2 id="Structs">Data structures</h2>
+<div class="definition"><h3 id="Struct_Coin">Struct: Coin</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>amount</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>denom</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>coin struct
+@param amount, token amount
+@param denom, name of token
+</pre><br/></div><div class="definition"><h3 id="Struct_Address">Struct: Address</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>chain</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>app</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>addr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>address structure
+@param chain, blockchain identify
+@param app, reserved field
+@param addr, address in blockchain
+</pre><br/></div><div class="definition"><h3 id="Struct_Fee">Struct: Fee</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>amount</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>denom</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>fee structure
+@param amount, token amount
+@param denom, name of token
+</pre><br/></div><div class="definition"><h3 id="Struct_Memo">Struct: Memo</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>id</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>text</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>memo structure
+@param id,
+@param text, content of memo
+</pre><br/></div><div class="definition"><h3 id="Struct_GasPrice">Struct: GasPrice</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>minGasPrice</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>maxGasPrice</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>avgGasPrice</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>denom</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_Tx">Struct: Tx</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>sequence</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>sender</td><td><code><a href="#Struct_Address">Address</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>receiver</td><td><code><a href="#Struct_Address">Address</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>amount</td><td><code>list&lt;<code><a href="#Struct_Coin">Coin</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>5</td><td>fee</td><td><code><a href="#Struct_Fee">Fee</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>6</td><td>memo</td><td><code><a href="#Struct_Memo">Memo</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>7</td><td>type</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>8</td><td>txHash</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>9</td><td>time</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>10</td><td>height</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>11</td><td>status</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>12</td><td>ext</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>13</td><td>gasLimit</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>14</td><td>gasUsed</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>15</td><td>actualFee</td><td><code><a href="#Struct_Fee">Fee</a></code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>tx structure
+
+</pre><br/></div><div class="definition"><h3 id="Struct_Exception">Exception: Exception</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>errCode</td><td><code>i32</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>errMsg</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>common exception
+@param errCode, error code
+@param errMsg, error message
+</pre><br/></div><div class="definition"><h3 id="Struct_TxGasRequest">Struct: TxGasRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>txType</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>txGas request
+@param txType, txType
+</pre><br/></div><div class="definition"><h3 id="Struct_TxGasResponse">Struct: TxGasResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>txType</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>gasLimit</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>gasPrice</td><td><code><a href="#Struct_GasPrice">GasPrice</a></code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>txGas response
+@param gas, suggest gas
+@param gasPrice, suggest gasPrice
+</pre><br/></div><div class="definition"><h3 id="Struct_SequenceRequest">Struct: SequenceRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>address</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>sequence request
+@param address, address
+</pre><br/></div><div class="definition"><h3 id="Struct_SequenceResponse">Struct: SequenceResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>sequence</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>ext</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>sequence response
+@param sequence, sequence of address
+</pre><br/></div><div class="definition"><h3 id="Struct_BuildTxRequest">Struct: BuildTxRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>tx</td><td><code><a href="#Struct_Tx">Tx</a></code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>buildTx request
+@param tx
+</pre><br/></div><div class="definition"><h3 id="Struct_BuildTxResponse">Struct: BuildTxResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>data</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>ext</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>buildTx response
+@param data, result of buildTx
+</pre><br/></div><div class="definition"><h3 id="Struct_PostTxRequest">Struct: PostTxRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>tx</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>postTx request
+@param tx, tx which has been signed
+</pre><br/></div><div class="definition"><h3 id="Struct_PostTxResponse">Struct: PostTxResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>txHash</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>postTx response
+@param txHash, transaction hash
+</pre><br/></div><div class="definition"><h3 id="Struct_SimulateTxRequest">Struct: SimulateTxRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>tx</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>SimulateTxRequest request
+@param tx, tx which has been signed
+</pre><br/></div><div class="definition"><h3 id="Struct_RewardDetail">Struct: RewardDetail</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>valAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>name</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>amount</td><td><code><a href="#Struct_Coin">Coin</a></code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_SimulateTxResponse">Struct: SimulateTxResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>gas</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>details</td><td><code>list&lt;<code><a href="#Struct_RewardDetail">RewardDetail</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>SimulateTxRequest request
+@param tx, tx which has been signed
+</pre><br/></div><div class="definition"><h3 id="Struct_BalanceRequest">Struct: BalanceRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>address</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>balance request
+@param address, address of blockchain
+</pre><br/></div><div class="definition"><h3 id="Struct_BalanceResponse">Struct: BalanceResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>coins</td><td><code>list&lt;<code><a href="#Struct_Coin">Coin</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>balance response
+@param coins, balance of address
+</pre><br/></div><div class="definition"><h3 id="Struct_TxListRequest">Struct: TxListRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>address</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>page</td><td><code>i64</code></td><td></td><td>required</td><td></td></tr>
+<tr><td>3</td><td>perPage</td><td><code>i64</code></td><td></td><td>required</td><td></td></tr>
+<tr><td>4</td><td>status</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>5</td><td>type</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>6</td><td>startTime</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>7</td><td>endTime</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>8</td><td>sort</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>9</td><td>q</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>10</td><td>ext</td><td><code>binary</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>11</td><td>height</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+</table><br/><pre>txList request
+@param address, address of blockchain
+@param page, current page
+@param perPage, num of record each page
+@param status, tx status
+@param type, tx type
+@param startTime, tx time
+@param endTime, tx time
+@param sort, sort
+@param q, content of query
+</pre><br/></div><div class="definition"><h3 id="Struct_TxDetailRequest">Struct: TxDetailRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>txHash</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
+</table><br/><pre>txDetail request
+@param txHash, tx hash
+</pre><br/></div><div class="definition"><h3 id="Struct_Reward">Struct: Reward</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>delAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>amount</td><td><code>list&lt;<code><a href="#Struct_Coin">Coin</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>fee</td><td><code><a href="#Struct_Fee">Fee</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>memo</td><td><code><a href="#Struct_Memo">Memo</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>5</td><td>type</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>6</td><td>txHash</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>7</td><td>time</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>8</td><td>height</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>9</td><td>status</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>10</td><td>withdrawAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>11</td><td>details</td><td><code>list&lt;<code><a href="#Struct_RewardDetail">RewardDetail</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_RewardInfoRequest">Struct: RewardInfoRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>delAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>valAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_RewardInfoResponse">Struct: RewardInfoResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>1</td><td>delAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>2</td><td>withdrawAddr</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>3</td><td>totalRetrieveReward</td><td><code><a href="#Struct_Coin">Coin</a></code></td><td></td><td>default</td><td></td></tr>
+<tr><td>4</td><td>rewards</td><td><code>list&lt;<code><a href="#Struct_Reward">Reward</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div></div></body></html>

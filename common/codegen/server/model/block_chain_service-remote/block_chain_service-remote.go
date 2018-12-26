@@ -25,9 +25,11 @@ func Usage() {
 	fmt.Fprintln(os.Stderr, "  SequenceResponse GetSequence(SequenceRequest req)")
 	fmt.Fprintln(os.Stderr, "  BuildTxResponse BuildTx(BuildTxRequest req)")
 	fmt.Fprintln(os.Stderr, "  PostTxResponse PostTx(PostTxRequest req)")
+	fmt.Fprintln(os.Stderr, "  SimulateTxResponse SimulateTx(SimulateTxRequest req)")
 	fmt.Fprintln(os.Stderr, "  BalanceResponse GetBalance(BalanceRequest req)")
 	fmt.Fprintln(os.Stderr, "   GetTxList(TxListRequest req)")
 	fmt.Fprintln(os.Stderr, "  Tx GetTxDetail(TxDetailRequest req)")
+	fmt.Fprintln(os.Stderr, "  RewardListResponse GetRewardList(RewardListRequest req)")
 	fmt.Fprintln(os.Stderr)
 	os.Exit(0)
 }
@@ -130,19 +132,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxGas requires 1 args")
 			flag.Usage()
 		}
-		arg17 := flag.Arg(1)
-		mbTrans18 := thrift.NewTMemoryBufferLen(len(arg17))
-		defer mbTrans18.Close()
-		_, err19 := mbTrans18.WriteString(arg17)
-		if err19 != nil {
+		arg21 := flag.Arg(1)
+		mbTrans22 := thrift.NewTMemoryBufferLen(len(arg21))
+		defer mbTrans22.Close()
+		_, err23 := mbTrans22.WriteString(arg21)
+		if err23 != nil {
 			Usage()
 			return
 		}
-		factory20 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt21 := factory20.GetProtocol(mbTrans18)
+		factory24 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt25 := factory24.GetProtocol(mbTrans22)
 		argvalue0 := model.NewTxGasRequest()
-		err22 := argvalue0.Read(jsProt21)
-		if err22 != nil {
+		err26 := argvalue0.Read(jsProt25)
+		if err26 != nil {
 			Usage()
 			return
 		}
@@ -155,19 +157,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetSequence requires 1 args")
 			flag.Usage()
 		}
-		arg23 := flag.Arg(1)
-		mbTrans24 := thrift.NewTMemoryBufferLen(len(arg23))
-		defer mbTrans24.Close()
-		_, err25 := mbTrans24.WriteString(arg23)
-		if err25 != nil {
+		arg27 := flag.Arg(1)
+		mbTrans28 := thrift.NewTMemoryBufferLen(len(arg27))
+		defer mbTrans28.Close()
+		_, err29 := mbTrans28.WriteString(arg27)
+		if err29 != nil {
 			Usage()
 			return
 		}
-		factory26 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt27 := factory26.GetProtocol(mbTrans24)
+		factory30 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt31 := factory30.GetProtocol(mbTrans28)
 		argvalue0 := model.NewSequenceRequest()
-		err28 := argvalue0.Read(jsProt27)
-		if err28 != nil {
+		err32 := argvalue0.Read(jsProt31)
+		if err32 != nil {
 			Usage()
 			return
 		}
@@ -180,19 +182,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "BuildTx requires 1 args")
 			flag.Usage()
 		}
-		arg29 := flag.Arg(1)
-		mbTrans30 := thrift.NewTMemoryBufferLen(len(arg29))
-		defer mbTrans30.Close()
-		_, err31 := mbTrans30.WriteString(arg29)
-		if err31 != nil {
+		arg33 := flag.Arg(1)
+		mbTrans34 := thrift.NewTMemoryBufferLen(len(arg33))
+		defer mbTrans34.Close()
+		_, err35 := mbTrans34.WriteString(arg33)
+		if err35 != nil {
 			Usage()
 			return
 		}
-		factory32 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt33 := factory32.GetProtocol(mbTrans30)
+		factory36 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt37 := factory36.GetProtocol(mbTrans34)
 		argvalue0 := model.NewBuildTxRequest()
-		err34 := argvalue0.Read(jsProt33)
-		if err34 != nil {
+		err38 := argvalue0.Read(jsProt37)
+		if err38 != nil {
 			Usage()
 			return
 		}
@@ -205,19 +207,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "PostTx requires 1 args")
 			flag.Usage()
 		}
-		arg35 := flag.Arg(1)
-		mbTrans36 := thrift.NewTMemoryBufferLen(len(arg35))
-		defer mbTrans36.Close()
-		_, err37 := mbTrans36.WriteString(arg35)
-		if err37 != nil {
+		arg39 := flag.Arg(1)
+		mbTrans40 := thrift.NewTMemoryBufferLen(len(arg39))
+		defer mbTrans40.Close()
+		_, err41 := mbTrans40.WriteString(arg39)
+		if err41 != nil {
 			Usage()
 			return
 		}
-		factory38 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt39 := factory38.GetProtocol(mbTrans36)
+		factory42 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt43 := factory42.GetProtocol(mbTrans40)
 		argvalue0 := model.NewPostTxRequest()
-		err40 := argvalue0.Read(jsProt39)
-		if err40 != nil {
+		err44 := argvalue0.Read(jsProt43)
+		if err44 != nil {
 			Usage()
 			return
 		}
@@ -225,24 +227,49 @@ func main() {
 		fmt.Print(client.PostTx(context.Background(), value0))
 		fmt.Print("\n")
 		break
+	case "SimulateTx":
+		if flag.NArg()-1 != 1 {
+			fmt.Fprintln(os.Stderr, "SimulateTx requires 1 args")
+			flag.Usage()
+		}
+		arg45 := flag.Arg(1)
+		mbTrans46 := thrift.NewTMemoryBufferLen(len(arg45))
+		defer mbTrans46.Close()
+		_, err47 := mbTrans46.WriteString(arg45)
+		if err47 != nil {
+			Usage()
+			return
+		}
+		factory48 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt49 := factory48.GetProtocol(mbTrans46)
+		argvalue0 := model.NewSimulateTxRequest()
+		err50 := argvalue0.Read(jsProt49)
+		if err50 != nil {
+			Usage()
+			return
+		}
+		value0 := argvalue0
+		fmt.Print(client.SimulateTx(context.Background(), value0))
+		fmt.Print("\n")
+		break
 	case "GetBalance":
 		if flag.NArg()-1 != 1 {
 			fmt.Fprintln(os.Stderr, "GetBalance requires 1 args")
 			flag.Usage()
 		}
-		arg41 := flag.Arg(1)
-		mbTrans42 := thrift.NewTMemoryBufferLen(len(arg41))
-		defer mbTrans42.Close()
-		_, err43 := mbTrans42.WriteString(arg41)
-		if err43 != nil {
+		arg51 := flag.Arg(1)
+		mbTrans52 := thrift.NewTMemoryBufferLen(len(arg51))
+		defer mbTrans52.Close()
+		_, err53 := mbTrans52.WriteString(arg51)
+		if err53 != nil {
 			Usage()
 			return
 		}
-		factory44 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt45 := factory44.GetProtocol(mbTrans42)
+		factory54 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt55 := factory54.GetProtocol(mbTrans52)
 		argvalue0 := model.NewBalanceRequest()
-		err46 := argvalue0.Read(jsProt45)
-		if err46 != nil {
+		err56 := argvalue0.Read(jsProt55)
+		if err56 != nil {
 			Usage()
 			return
 		}
@@ -255,19 +282,19 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxList requires 1 args")
 			flag.Usage()
 		}
-		arg47 := flag.Arg(1)
-		mbTrans48 := thrift.NewTMemoryBufferLen(len(arg47))
-		defer mbTrans48.Close()
-		_, err49 := mbTrans48.WriteString(arg47)
-		if err49 != nil {
+		arg57 := flag.Arg(1)
+		mbTrans58 := thrift.NewTMemoryBufferLen(len(arg57))
+		defer mbTrans58.Close()
+		_, err59 := mbTrans58.WriteString(arg57)
+		if err59 != nil {
 			Usage()
 			return
 		}
-		factory50 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt51 := factory50.GetProtocol(mbTrans48)
+		factory60 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt61 := factory60.GetProtocol(mbTrans58)
 		argvalue0 := model.NewTxListRequest()
-		err52 := argvalue0.Read(jsProt51)
-		if err52 != nil {
+		err62 := argvalue0.Read(jsProt61)
+		if err62 != nil {
 			Usage()
 			return
 		}
@@ -280,24 +307,49 @@ func main() {
 			fmt.Fprintln(os.Stderr, "GetTxDetail requires 1 args")
 			flag.Usage()
 		}
-		arg53 := flag.Arg(1)
-		mbTrans54 := thrift.NewTMemoryBufferLen(len(arg53))
-		defer mbTrans54.Close()
-		_, err55 := mbTrans54.WriteString(arg53)
-		if err55 != nil {
+		arg63 := flag.Arg(1)
+		mbTrans64 := thrift.NewTMemoryBufferLen(len(arg63))
+		defer mbTrans64.Close()
+		_, err65 := mbTrans64.WriteString(arg63)
+		if err65 != nil {
 			Usage()
 			return
 		}
-		factory56 := thrift.NewTSimpleJSONProtocolFactory()
-		jsProt57 := factory56.GetProtocol(mbTrans54)
+		factory66 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt67 := factory66.GetProtocol(mbTrans64)
 		argvalue0 := model.NewTxDetailRequest()
-		err58 := argvalue0.Read(jsProt57)
-		if err58 != nil {
+		err68 := argvalue0.Read(jsProt67)
+		if err68 != nil {
 			Usage()
 			return
 		}
 		value0 := argvalue0
 		fmt.Print(client.GetTxDetail(context.Background(), value0))
+		fmt.Print("\n")
+		break
+	case "GetRewardList":
+		if flag.NArg()-1 != 1 {
+			fmt.Fprintln(os.Stderr, "GetRewardList requires 1 args")
+			flag.Usage()
+		}
+		arg69 := flag.Arg(1)
+		mbTrans70 := thrift.NewTMemoryBufferLen(len(arg69))
+		defer mbTrans70.Close()
+		_, err71 := mbTrans70.WriteString(arg69)
+		if err71 != nil {
+			Usage()
+			return
+		}
+		factory72 := thrift.NewTSimpleJSONProtocolFactory()
+		jsProt73 := factory72.GetProtocol(mbTrans70)
+		argvalue0 := model.NewRewardListRequest()
+		err74 := argvalue0.Read(jsProt73)
+		if err74 != nil {
+			Usage()
+			return
+		}
+		value0 := argvalue0
+		fmt.Print(client.GetRewardList(context.Background(), value0))
 		fmt.Print("\n")
 		break
 	case "":
