@@ -20,8 +20,6 @@ struct Delegator {
 	3: double shares,
     4: double bondedTokens,
     5: DelegatorUnbondingDelegation unbondingDelegation
-    6: Coin retrieveReward
-    7: Coin unRetrieveReward
 }
 
 struct CandidateDescription {

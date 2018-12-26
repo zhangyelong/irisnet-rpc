@@ -149,8 +149,6 @@ var Delegator = module.exports.Delegator = function(args) {
   this.shares = null;
   this.bondedTokens = null;
   this.unbondingDelegation = null;
-  this.retrieveReward = null;
-  this.unRetrieveReward = null;
   if (args) {
     if (args.address !== undefined && args.address !== null) {
       this.address = args.address;
@@ -166,12 +164,6 @@ var Delegator = module.exports.Delegator = function(args) {
     }
     if (args.unbondingDelegation !== undefined && args.unbondingDelegation !== null) {
       this.unbondingDelegation = new ttypes.DelegatorUnbondingDelegation(args.unbondingDelegation);
-    }
-    if (args.retrieveReward !== undefined && args.retrieveReward !== null) {
-      this.retrieveReward = new ttypes.Coin(args.retrieveReward);
-    }
-    if (args.unRetrieveReward !== undefined && args.unRetrieveReward !== null) {
-      this.unRetrieveReward = new ttypes.Coin(args.unRetrieveReward);
     }
   }
 };
@@ -225,22 +217,6 @@ Delegator.prototype.read = function(input) {
         input.skip(ftype);
       }
       break;
-      case 6:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.retrieveReward = new ttypes.Coin();
-        this.retrieveReward.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
-      case 7:
-      if (ftype == Thrift.Type.STRUCT) {
-        this.unRetrieveReward = new ttypes.Coin();
-        this.unRetrieveReward.read(input);
-      } else {
-        input.skip(ftype);
-      }
-      break;
       default:
         input.skip(ftype);
     }
@@ -275,16 +251,6 @@ Delegator.prototype.write = function(output) {
   if (this.unbondingDelegation !== null && this.unbondingDelegation !== undefined) {
     output.writeFieldBegin('unbondingDelegation', Thrift.Type.STRUCT, 5);
     this.unbondingDelegation.write(output);
-    output.writeFieldEnd();
-  }
-  if (this.retrieveReward !== null && this.retrieveReward !== undefined) {
-    output.writeFieldBegin('retrieveReward', Thrift.Type.STRUCT, 6);
-    this.retrieveReward.write(output);
-    output.writeFieldEnd();
-  }
-  if (this.unRetrieveReward !== null && this.unRetrieveReward !== undefined) {
-    output.writeFieldBegin('unRetrieveReward', Thrift.Type.STRUCT, 7);
-    this.unRetrieveReward.write(output);
     output.writeFieldEnd();
   }
   output.writeFieldStop();

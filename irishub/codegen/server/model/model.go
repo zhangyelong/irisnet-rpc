@@ -308,16 +308,12 @@ func (p *DelegatorUnbondingDelegation) String() string {
 //  - Shares
 //  - BondedTokens
 //  - UnbondingDelegation
-//  - RetrieveReward
-//  - UnRetrieveReward
 type Delegator struct {
 	Address             string                        `thrift:"address,1" db:"address" json:"address"`
 	ValAddress          string                        `thrift:"valAddress,2" db:"valAddress" json:"valAddress"`
 	Shares              float64                       `thrift:"shares,3" db:"shares" json:"shares"`
 	BondedTokens        float64                       `thrift:"bondedTokens,4" db:"bondedTokens" json:"bondedTokens"`
 	UnbondingDelegation *DelegatorUnbondingDelegation `thrift:"unbondingDelegation,5" db:"unbondingDelegation" json:"unbondingDelegation"`
-	RetrieveReward      *Coin                         `thrift:"retrieveReward,6" db:"retrieveReward" json:"retrieveReward"`
-	UnRetrieveReward    *Coin                         `thrift:"unRetrieveReward,7" db:"unRetrieveReward" json:"unRetrieveReward"`
 }
 
 func NewDelegator() *Delegator {
@@ -348,34 +344,8 @@ func (p *Delegator) GetUnbondingDelegation() *DelegatorUnbondingDelegation {
 	}
 	return p.UnbondingDelegation
 }
-
-var Delegator_RetrieveReward_DEFAULT *Coin
-
-func (p *Delegator) GetRetrieveReward() *Coin {
-	if !p.IsSetRetrieveReward() {
-		return Delegator_RetrieveReward_DEFAULT
-	}
-	return p.RetrieveReward
-}
-
-var Delegator_UnRetrieveReward_DEFAULT *Coin
-
-func (p *Delegator) GetUnRetrieveReward() *Coin {
-	if !p.IsSetUnRetrieveReward() {
-		return Delegator_UnRetrieveReward_DEFAULT
-	}
-	return p.UnRetrieveReward
-}
 func (p *Delegator) IsSetUnbondingDelegation() bool {
 	return p.UnbondingDelegation != nil
-}
-
-func (p *Delegator) IsSetRetrieveReward() bool {
-	return p.RetrieveReward != nil
-}
-
-func (p *Delegator) IsSetUnRetrieveReward() bool {
-	return p.UnRetrieveReward != nil
 }
 
 func (p *Delegator) Read(iprot thrift.TProtocol) error {
@@ -442,26 +412,6 @@ func (p *Delegator) Read(iprot thrift.TProtocol) error {
 					return err
 				}
 			}
-		case 6:
-			if fieldTypeId == thrift.STRUCT {
-				if err := p.ReadField6(iprot); err != nil {
-					return err
-				}
-			} else {
-				if err := iprot.Skip(fieldTypeId); err != nil {
-					return err
-				}
-			}
-		case 7:
-			if fieldTypeId == thrift.STRUCT {
-				if err := p.ReadField7(iprot); err != nil {
-					return err
-				}
-			} else {
-				if err := iprot.Skip(fieldTypeId); err != nil {
-					return err
-				}
-			}
 		default:
 			if err := iprot.Skip(fieldTypeId); err != nil {
 				return err
@@ -521,22 +471,6 @@ func (p *Delegator) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *Delegator) ReadField6(iprot thrift.TProtocol) error {
-	p.RetrieveReward = &Coin{}
-	if err := p.RetrieveReward.Read(iprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.RetrieveReward), err)
-	}
-	return nil
-}
-
-func (p *Delegator) ReadField7(iprot thrift.TProtocol) error {
-	p.UnRetrieveReward = &Coin{}
-	if err := p.UnRetrieveReward.Read(iprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error reading struct: ", p.UnRetrieveReward), err)
-	}
-	return nil
-}
-
 func (p *Delegator) Write(oprot thrift.TProtocol) error {
 	if err := oprot.WriteStructBegin("Delegator"); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
@@ -555,12 +489,6 @@ func (p *Delegator) Write(oprot thrift.TProtocol) error {
 			return err
 		}
 		if err := p.writeField5(oprot); err != nil {
-			return err
-		}
-		if err := p.writeField6(oprot); err != nil {
-			return err
-		}
-		if err := p.writeField7(oprot); err != nil {
 			return err
 		}
 	}
@@ -634,32 +562,6 @@ func (p *Delegator) writeField5(oprot thrift.TProtocol) (err error) {
 	}
 	if err := oprot.WriteFieldEnd(); err != nil {
 		return thrift.PrependError(fmt.Sprintf("%T write field end error 5:unbondingDelegation: ", p), err)
-	}
-	return err
-}
-
-func (p *Delegator) writeField6(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("retrieveReward", thrift.STRUCT, 6); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 6:retrieveReward: ", p), err)
-	}
-	if err := p.RetrieveReward.Write(oprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.RetrieveReward), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 6:retrieveReward: ", p), err)
-	}
-	return err
-}
-
-func (p *Delegator) writeField7(oprot thrift.TProtocol) (err error) {
-	if err := oprot.WriteFieldBegin("unRetrieveReward", thrift.STRUCT, 7); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field begin error 7:unRetrieveReward: ", p), err)
-	}
-	if err := p.UnRetrieveReward.Write(oprot); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T error writing struct: ", p.UnRetrieveReward), err)
-	}
-	if err := oprot.WriteFieldEnd(); err != nil {
-		return thrift.PrependError(fmt.Sprintf("%T write field end error 7:unRetrieveReward: ", p), err)
 	}
 	return err
 }
